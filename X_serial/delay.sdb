@@ -1,0 +1,15 @@
+[p GLOBOPT AUTOSTATIC PIC14 PICMIDHI PICLOMID ]
+"12 D:\Mis Cosas\Escritorio\Electronica\hitech c pic16f84a\X_serial\delay.c
+[v _delay `(v  1 e 0 0 ]
+{
+[v _cnt `uc  1 a 1 w ]
+[v _cnt `uc  1 a 1 0 ]
+[v _i `uc  1 a 1 1 ]
+"24
+{
+[v __dcnt `uc  1 a 1 2 ]
+}
+"21
+[v _cnt `uc  1 a 1 0 ]
+"28
+} 3

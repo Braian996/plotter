@@ -1,0 +1,48 @@
+[Header]
+MagicCookie={0b13fe8c-dfe0-40eb-8900-6712719559a7}
+Version=1.0
+[File000]
+Location=D:\Mis Cosas\Escritorio\Electronica\hitech c pic16f84a\X_serial\main.obj
+Folder=Intermediary
+[File001]
+Location=D:\Mis Cosas\Escritorio\Electronica\hitech c pic16f84a\X_serial\main.cce
+Folder=Intermediary
+[File002]
+Location=D:\Mis Cosas\Escritorio\Electronica\hitech c pic16f84a\X_serial\serial.obj
+Folder=Intermediary
+[File003]
+Location=D:\Mis Cosas\Escritorio\Electronica\hitech c pic16f84a\X_serial\serial.cce
+Folder=Intermediary
+[File004]
+Location=D:\Mis Cosas\Escritorio\Electronica\hitech c pic16f84a\X_serial\delay.obj
+Folder=Intermediary
+[File005]
+Location=D:\Mis Cosas\Escritorio\Electronica\hitech c pic16f84a\X_serial\delay.cce
+Folder=Intermediary
+[File006]
+Location=D:\Mis Cosas\Escritorio\Electronica\hitech c pic16f84a\X_serial\pap.obj
+Folder=Intermediary
+[File007]
+Location=D:\Mis Cosas\Escritorio\Electronica\hitech c pic16f84a\X_serial\pap.cce
+Folder=Intermediary
+[File008]
+Location=D:\Mis Cosas\Escritorio\Electronica\hitech c pic16f84a\X_serial\papL293DX2.obj
+Folder=Intermediary
+[File009]
+Location=D:\Mis Cosas\Escritorio\Electronica\hitech c pic16f84a\X_serial\papL293DX2.cce
+Folder=Intermediary
+[File010]
+Location=D:\Mis Cosas\Escritorio\Electronica\hitech c pic16f84a\X_serial\hc595.obj
+Folder=Intermediary
+[File011]
+Location=D:\Mis Cosas\Escritorio\Electronica\hitech c pic16f84a\X_serial\hc595.cce
+Folder=Intermediary
+[File012]
+Location=D:\Mis Cosas\Escritorio\Electronica\hitech c pic16f84a\X_serial\srf04.obj
+Folder=Intermediary
+[File013]
+Location=D:\Mis Cosas\Escritorio\Electronica\hitech c pic16f84a\X_serial\srf04.cce
+Folder=Intermediary
+[File014]
+Location=serial.cof
+Folder=Output

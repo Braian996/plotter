@@ -1,0 +1,215 @@
+
+
+HI-TECH Software PICC Macro Assembler V8.05PL2
+Serial number: HCPIC-00000                            Mon Nov 13 00:14:51 2017
+
+Licensed to: MITSOS FOREVER
+     1                           	processor	16F84A
+     2                           	opt	pw 79
+     3                           	psect	__Z00000RS_,global,delta=1
+     4                           	psect	text0,local,class=CODE,delta=2
+     5                           	psect	config,global,class=CONFIG,delta=2
+     6                           	psect	text1,local,class=CODE,delta=2
+     7                           	psect	text2,local,class=CODE,delta=2
+     8                           	psect	strings,global,class=STRING,delta=2
+     9                           	psect	rbss_0,global,class=BANK0,space=1,delta=
+      +                          1
+    10                           	psect	temp,global,ovrld,class=BANK0,space=1,de
+      +                          lta=1
+    11  0000                     
+    12  0000                     
+    13  0000                     
+    14  0000                     
+    15  0000                     
+    16  0000                     
+    17  0000                     
+    18  0000                     
+    19  0000                     
+    20  0000                     
+    21                           
+    22                           	psect	__Z00000RS_
+    23  003C                     
+    24  003C                     	;#
+    25                           
+    26                           	psect	text0
+    27  0066                     _setup
+    28                           ;main.c: 22: serial_begin();
+    29  0066  1283               	bcf	3,5
+    30  0067  2062               	call	_serial_begin
+    31                           ;main.c: 23: putch('*');
+    32  0068  302A               	movlw	42
+    33  0069  2109               	call	_putch
+    34                           ;main.c: 24: srf04Begin();
+    35  006A  28BE               	goto	_srf04Begin
+    36                           
+    37                           	psect	config
+    38  2007  3FF1               	dw	16369	;#
+    39                           
+    40                           	psect	text1
+    41  00F8                     _loop
+    42                           ;main.c: 30: d = srf04GetDistance();
+    43  00F8  1283               	bcf	3,5
+    44  00F9  21A2               	call	_srf04GetDistance
+    45  00FA  0835               	movf	btemp,w
+    46  00FB  008D               	movwf	_d
+    47  00FC  0836               	movf	btemp+1,w
+    48  00FD  008E               	movwf	_d+1
+    49                           ;main.c: 31: printf("[%d]\r\n",d);
+    50  00FE  3037               	movlw	low u19
+    51  00FF  00A5               	movwf	?_printf+1
+    52  0100  3000               	movlw	high u19
+    53  0101  00A6               	movwf	?_printf+2
+    54  0102  080D               	movf	_d,w
+    55  0103  00A2               	movwf	?a_loop
+    56  0104  080E               	movf	_d+1,w
+    57  0105  00A3               	movwf	?a_loop+1
+    58  0106  3022               	movlw	?a_loop
+    59  0107  00A4               	movwf	?_printf
+    60  0108  2859               	goto	_printf
+    61                           
+    62                           	psect	text2
+    63  0094                     _main
+    64                           ;main.c: 40: TRISA = 0b00000000;
+    65  0094  1683               	bsf	3,5
+    66  0095  0185               	clrf	5	;volatile
+    67                           ;main.c: 41: TRISB = 0b00000000;
+    68  0096  0186               	clrf	6	;volatile
+    69                           ;main.c: 43: setup();
+    70  0097  1283               	bcf	3,5
+    71  0098  2066               	call	_setup
+    72                           ;main.c: 45: PORTA = 0b00000000;
+    73  0099  0185               	clrf	5	;volatile
+    74                           ;main.c: 46: PORTB = 0b00000000;
+    75  009A  0186               	clrf	6	;volatile
+    76  009B                     l6
+    77                           ;main.c: 50: while(1){
+    78                           ;main.c: 51: loop();
+    79  009B  20F8               	call	_loop
+    80                           ;main.c: 52: }
+    81  009C  289B               	goto	l6
+    82                           
+    83                           	psect	strings
+    84  0037                     u19
+    85  0037  345B               	retlw	91	;'['
+    86  0038  3425               	retlw	37
+    87  0039  3464               	retlw	100	;'d'
+    88  003A  345D               	retlw	93	;']'
+    89  003B  340D               	retlw	13
+    90  003C  340A               	retlw	10
+    91  003D  3400               	retlw	0
+    92  0000                     
+    93  0000                     
+    94  0000                     
+    95  0000                     
+    96  0000                     
+    97  0000                     
+    98  0000                     
+    99  0000                     
+   100  0000                     
+   101  0000                     
+   102  0000                     
+   103  0000                     
+   104  0000                     
+   105  0000                     
+   106  0000                     
+   107  0000                     
+   108  0000                     
+   109  0000                     
+   110  0000                     
+   111  0000                     
+   112  0000                     
+   113  0000                     
+   114  0000                     
+   115  0000                     
+   116  0000                     
+   117  0000                     
+   118  0000                     
+   119  0000                     
+   120  0000                     
+   121  0000                     
+   122  0000                     
+   123  0000                     
+   124  0000                     
+   125  0000                     
+   126  0000                     
+   127  0000                     
+   128  0000                     
+   129  0000                     
+   130  0000                     
+   131  0000                     
+   132  0000                     
+   133  0000                     
+   134  0000                     
+   135  0000                     
+   136  0000                     
+   137  0000                     
+   138  0000                     
+   139  0000                     
+   140  0000                     
+   141  0000                     
+   142  0000                     
+   143  0000                     
+   144  0000                     
+   145  0000                     
+   146  0000                     
+   147  0000                     
+   148  0000                     
+   149  0000                     
+   150  0000                     
+   151  0000                     
+   152  0000                     
+   153  0000                     
+   154  0000                     
+   155  0000                     
+   156  0000                     
+   157  0000                     
+   158  0000                     
+   159  0000                     
+   160  0000                     
+   161  0000                     
+   162  0000                     
+   163  0000                     
+   164  0000                     
+   165  0000                     
+   166  0000                     
+   167  0000                     
+   168  0000                     
+   169  0000                     
+   170  0000                     
+   171  0000                     
+   172  0000                     
+   173  0000                     
+   174  0000                     
+   175  0000                     
+   176  0000                     
+   177  0000                     
+   178  0000                     
+   179  0000                     
+   180  0000                     
+   181  0000                     
+   182  0000                     
+   183  0000                     
+   184  0000                     
+   185  0000                     
+   186  0000                     
+   187  0000                     
+   188                           
+   189                           	psect	rbss_0
+   190  000D                     _d
+   191  000D                     	ds	2
+   192                           
+   193                           	psect	temp
+   194  0035                     btemp
+   195  0035                     	ds	1
+
+
+HI-TECH Software PICC Macro Assembler V8.05PL2
+Symbol Table                                          Mon Nov 13 00:14:51 2017
+
+               l6 009B                 _d 000D            ?a_loop 0022  
+              u19 0037           ?_printf 0024              f1023 0024  
+          _printf 0059              _main 0094              _loop 00F8  
+            btemp 0035              start 0017        _srf04Begin 00BE  
+           _setup 0066             _putch 0109             status 0003  
+_srf04GetDistance 01A2        clear_bank0 0017      _serial_begin 0062  
+      used_btemp0 0001  

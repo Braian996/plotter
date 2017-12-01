@@ -1,0 +1,18 @@
+#include	<pic.h>
+
+#define OUTPUT	0
+#define INPUT	1
+
+#define LOW	0
+#define HIGH	1
+
+//funciones y procesos de manejo de bits
+#define	port_bit(adr, bit)	((unsigned)(&adr)*8+(bit)) //reasignacion de bit a variable
+#define bit_set(var,bitno) ((var) |= (1 << (bitno)))  //seteo a 1 de bit en puerto
+#define bit_clr(var,bitno) ((var) &= ~(1 << (bitno))) //seteo a 0 de bit en puerto
+#define bit_flip(var,bitno) ((var) ^= (1 << (bitno))) 
+#define bit_test(var,bitno) ((var) & (1 << (bitno))) 
+
+#define pinMode(var,bitno,m) if(m==OUTPUT) bit_clr(var,bitno); else bit_set(var,bitno);
+#define digitalWrite(var,bitno,m) if(m==LOW) bit_clr(var,bitno); else bit_set(var,bitno);
+#define digitalRead(var,bitno) !!bit_test(var,bitno)

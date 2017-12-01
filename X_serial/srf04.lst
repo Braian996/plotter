@@ -1,0 +1,314 @@
+
+
+HI-TECH Software PICC Macro Assembler V8.05PL2
+Serial number: HCPIC-00000                            Mon Nov 13 00:14:55 2017
+
+Licensed to: MITSOS FOREVER
+     1                           	processor	16F84A
+     2                           	opt	pw 79
+     3                           	psect	__Z00000RS_,global,delta=1
+     4                           	psect	text0,local,class=CODE,delta=2
+     5                           	psect	intcode,global,class=CODE,delta=2
+     6                           	psect	intsave_0,global,ovrld,class=BANK0,space
+      +                          =1,delta=1
+     7                           	psect	intret,global,class=CODE,delta=2
+     8                           	psect	intentry,global,class=CODE,delta=2
+     9                           	psect	intsave,global,class=BANK0,space=1,delta
+      +                          =1
+    10                           	psect	text1,local,class=CODE,delta=2
+    11                           	psect	text2,local,class=CODE,delta=2
+    12                           	psect	text3,local,class=CODE,delta=2
+    13                           	psect	rbss_0,global,class=BANK0,space=1,delta=
+      +                          1
+    14                           	psect	temp,global,ovrld,class=BANK0,space=1,de
+      +                          lta=1
+    15  0000                     
+    16  0000                     
+    17  0000                     
+    18  0000                     
+    19  0000                     
+    20  0000                     
+    21  0000                     
+    22  0000                     
+    23  0000                     
+    24  0000                     
+    25                           
+    26                           	psect	__Z00000RS_
+    27  003C                     
+    28  003C                     
+    29                           
+    30                           	psect	intcode
+    31  0008                     _isr
+    32  0008                     int_func
+    33                           ;srf04.c: 27: if (T0IF){
+    34  0008  1D0B               	btfss	11,2
+    35  0009  2811               	goto	l1
+    36                           ;srf04.c: 28: T0IF = 0;
+    37  000A  110B               	bcf	11,2
+    38                           ;srf04.c: 29: dSrf04++;
+    39  000B  1283               	bcf	3,5
+    40  000C  0AA0               	incf	_dSrf04
+    41  000D  1903               	btfsc	3,2
+    42  000E  0AA1               	incf	_dSrf04+1
+    43                           ;srf04.c: 30: TMR0 = 236;
+    44  000F  30EC               	movlw	-20
+    45  0010  0081               	movwf	1	;volatile
+    46                           ;srf04.c: 31: }
+    47  0011                     l1
+    48  0011  1283               	bcf	3,5
+    49                           
+    50                           	psect	intsave_0
+    51  000C                     saved_w
+    52  000C                     	ds	1
+    53                           
+    54                           	psect	intret
+    55  0012                     int_restore
+    56  0012  083E               	movf	saved_status,w
+    57  0013  0083               	movwf	3
+    58  0014  0E8C               	swapf	saved_w
+    59  0015  0E0C               	swapf	saved_w,w
+    60  0016  0009               	retfie
+    61                           
+    62                           	psect	intentry
+    63  0004                     int_entry
+    64  0004  008C               	movwf	saved_w
+    65  0005  0803               	movf	3,w
+    66  0006  0183               	clrf	3
+    67  0007  00BE               	movwf	saved_status
+    68                           
+    69                           	psect	intsave
+    70  003E                     saved_status
+    71  003E                     	ds	1
+    72                           
+    73                           	psect	text1
+    74                           ;srf04.c: 35: void srf04Begin(void){
+    75  00BE                     _srf04Begin
+    76                           ;srf04.c: 37: TRISB = 0b00000100;
+    77  00BE  3004               	movlw	4
+    78  00BF  1683               	bsf	3,5
+    79  00C0  0086               	movwf	6	;volatile
+    80                           ;srf04.c: 40: dSrf04 = 0;
+    81  00C1  1283               	bcf	3,5
+    82  00C2  01A0               	clrf	_dSrf04
+    83  00C3  01A1               	clrf	_dSrf04+1
+    84                           ;srf04.c: 41: OPTION = 0b00000000;
+    85  00C4  1683               	bsf	3,5
+    86  00C5  0181               	clrf	1
+    87                           ;srf04.c: 42: GIE = 1;
+    88  00C6  178B               	bsf	11,7
+    89                           ;srf04.c: 43: TMR0 = 236;
+    90  00C7  30EC               	movlw	-20
+    91  00C8  1283               	bcf	3,5
+    92  00C9  0081               	movwf	1	;volatile
+    93                           ;srf04.c: 44: }
+    94  00CA  0008               	return
+    95                           
+    96                           	psect	text2
+    97                           ;srf04.c: 47: unsigned int srf04GetDistance(voi
+      +                          d){
+    98  01A2                     _srf04GetDistance
+    99                           ;	__dcnt assigned to ?a_srf04GetDistance+0
+   100  0000                     _srf04GetDistance$_dcnt	set	?a_srf04GetDistance
+   101                           ;	__dcnt assigned to ?a_srf04GetDistance+0
+   102  0000                     _srf04GetDistance$_dcnt	set	?a_srf04GetDistance
+   103                           ;srf04.c: 49: delay(50);
+   104  01A2  3032               	movlw	50
+   105  01A3  1283               	bcf	3,5
+   106  01A4  20CB               	call	_delay
+   107                           ;srf04.c: 50: TRIGGER = 1;
+   108  01A5  1486               	bsf	6,1
+   109                           ;srf04.c: 51: { unsigned char _dcnt; _dcnt = (8
+      +                          )/((12*1000L)/(4*1000L))|1; while(--_dcnt != 0)
+      +                           continue; };
+   110  01A6  3003               	movlw	3
+   111  01A7  00A4               	movwf	?a_srf04GetDistance
+   112  01A8                     l5
+   113  01A8  0BA4               	decfsz	?a_srf04GetDistance
+   114  01A9  29A8               	goto	l5
+   115                           ;srf04.c: 52: TRIGGER = 0;
+   116  01AA  1086               	bcf	6,1
+   117                           ;srf04.c: 53: { unsigned char _dcnt; _dcnt = (8
+      +                          )/((12*1000L)/(4*1000L))|1; while(--_dcnt != 0)
+      +                           continue; };
+   118  01AB  3003               	movlw	3
+   119  01AC  00A4               	movwf	?a_srf04GetDistance
+   120  01AD                     l9
+   121  01AD  0BA4               	decfsz	?a_srf04GetDistance
+   122  01AE  29AD               	goto	l9
+   123                           ;srf04.c: 55: while (!ECHO);
+   124  01AF                     l11
+   125  01AF  1D06               	btfss	6,2
+   126  01B0  29AF               	goto	l11
+   127                           ;srf04.c: 57: dSrf04 = 0;
+   128  01B1  01A0               	clrf	_dSrf04
+   129  01B2  01A1               	clrf	_dSrf04+1
+   130                           ;srf04.c: 58: TMR0 = 236;
+   131  01B3  30EC               	movlw	-20
+   132  01B4  0081               	movwf	1	;volatile
+   133                           ;srf04.c: 59: T0IE = 1;
+   134  01B5  168B               	bsf	11,5
+   135                           ;srf04.c: 61: while (ECHO);
+   136  01B6                     l14
+   137  01B6  1906               	btfsc	6,2
+   138  01B7  29B6               	goto	l14
+   139                           ;srf04.c: 63: T0IE = 0;
+   140  01B8  128B               	bcf	11,5
+   141                           ;srf04.c: 65: if (dSrf04<=3)
+   142  01B9  3000               	movlw	0
+   143  01BA  0221               	subwf	_dSrf04+1,w
+   144  01BB  3004               	movlw	4
+   145  01BC  1903               	btfsc	3,2
+   146  01BD  0220               	subwf	_dSrf04,w
+   147  01BE  1803               	btfsc	3,0
+   148  01BF  29C3               	goto	l17
+   149                           ;srf04.c: 66: dSrf04=3;
+   150  01C0  3003               	movlw	3
+   151  01C1  00A0               	movwf	_dSrf04
+   152  01C2  01A1               	clrf	_dSrf04+1
+   153  01C3                     l17
+   154                           ;srf04.c: 68: if (dSrf04>=330 )
+   155  01C3  3001               	movlw	1
+   156  01C4  0221               	subwf	_dSrf04+1,w
+   157  01C5  304A               	movlw	74
+   158  01C6  1903               	btfsc	3,2
+   159  01C7  0220               	subwf	_dSrf04,w
+   160  01C8  1C03               	btfss	3,0
+   161  01C9  29CE               	goto	l18
+   162                           ;srf04.c: 69: dSrf04=330;
+   163  01CA  304A               	movlw	74
+   164  01CB  00A0               	movwf	_dSrf04
+   165  01CC  3001               	movlw	1
+   166  01CD  00A1               	movwf	_dSrf04+1
+   167  01CE                     l18
+   168                           ;srf04.c: 71: return dSrf04;
+   169  01CE  0821               	movf	_dSrf04+1,w
+   170  01CF  00B6               	movwf	btemp+1
+   171  01D0  0820               	movf	_dSrf04,w
+   172  01D1  00B5               	movwf	btemp
+   173                           ;srf04.c: 72: }
+   174  01D2  0008               	return
+   175                           
+   176                           	psect	text3
+   177  0000                     
+   178  0000                     
+   179  0000                     
+   180  0000                     
+   181  0000                     
+   182  0000                     
+   183  0000                     
+   184  0000                     
+   185  0000                     
+   186  0000                     
+   187  0000                     
+   188  0000                     
+   189  0000                     
+   190  0000                     
+   191  0000                     
+   192  0000                     
+   193  0000                     
+   194  0000                     
+   195  0000                     
+   196  0000                     
+   197  0000                     
+   198  0000                     
+   199  0000                     
+   200  0000                     
+   201  0000                     
+   202  0000                     
+   203  0000                     
+   204  0000                     
+   205  0000                     
+   206  0000                     
+   207  0000                     
+   208  0000                     
+   209  0000                     
+   210  0000                     
+   211  0000                     
+   212  0000                     
+   213  0000                     
+   214  0000                     
+   215  0000                     
+   216  0000                     
+   217  0000                     
+   218  0000                     
+   219  0000                     
+   220  0000                     
+   221  0000                     
+   222  0000                     
+   223  0000                     
+   224  0000                     
+   225  0000                     
+   226  0000                     
+   227  0000                     
+   228  0000                     
+   229  0000                     
+   230  0000                     
+   231  0000                     
+   232  0000                     
+   233  0000                     
+   234  0000                     
+   235  0000                     
+   236  0000                     
+   237  0000                     
+   238  0000                     
+   239  0000                     
+   240  0000                     
+   241  0000                     
+   242  0000                     
+   243  0000                     
+   244  0000                     
+   245  0000                     
+   246  0000                     
+   247  0000                     
+   248  0000                     
+   249  0000                     
+   250  0000                     
+   251  0000                     
+   252  0000                     
+   253  0000                     
+   254  0000                     
+   255  0000                     
+   256  0000                     
+   257  0000                     
+   258  0000                     
+   259  0000                     
+   260  0000                     
+   261  0000                     
+   262  0000                     
+   263  0000                     
+   264  0000                     
+   265  0000                     
+   266  0000                     
+   267  0000                     
+   268  0000                     
+   269  0000                     
+   270  0000                     
+   271  0000                     
+   272  0000                     
+   273  0000                     
+   274  0000                     
+   275                           
+   276                           	psect	rbss_0
+   277  0020                     _dSrf04
+   278  0020                     	ds	2
+   279                           
+   280                           	psect	temp
+   281  0035                     btemp
+   282  0035                     	ds	2
+
+
+HI-TECH Software PICC Macro Assembler V8.05PL2
+Symbol Table                                          Mon Nov 13 00:14:55 2017
+
+                     l1 0011                       l5 01A8  
+                     l9 01AD                      l11 01AF  
+                    l14 01B6                      l17 01C3  
+                    l18 01CE                     _isr 0008  
+                _dSrf04 0020                    btemp 0035  
+                saved_w 000C                int_entry 0004  
+            _srf04Begin 00BE                   _delay 00CB  
+    ?a_srf04GetDistance 0024             saved_status 003E  
+                 status 0003                 int_func 0008  
+      _srf04GetDistance 01A2              clear_bank0 0017  
+            int_restore 0012              used_btemp0 0001  
+            used_btemp1 0001  

@@ -1,0 +1,94 @@
+void setup(void)
+====================
+En esta función es donde se debe configurar que bits (TRISA/TRISB) seran de "entrada", por defecto si no configuramos un bit este sera una "salida".
+
+void loop(void)
+====================
+Aquí es donde programaremos. cuando llega a la ultima instrucción vuelve a la primera cada vez que sucede esto es 1 ciclo.
+
+pinMode(var,bitno,m)
+====================
+COn esta función podemos configurar dentro de la función "Setup" las entradas o salidas.
+
+var = TRISA / TRISB
+bitno = numero de bit a configurar (0..7)
+m = INPUT / OUTPUT
+
+ejemplo: pinMode( TRISB, 0, INPUT);
+
+digitalWrite(var,bitno,m)
+=========================
+Con esta función podemos poner en estado alto o bajo un bit de una PUERTA si esta configurada como salida.
+
+var = PORTA / PORTB
+bitno = numero de bit (0..7)
+m = HIGH / LOW    (0/1)
+
+ejemplo: digitalWrite( PORTB, 2, HIGH);
+
+digitalRead(var,bitno)
+=========================
+Si el bit de la PUERTA especificada esta configurado como entrada devolvera 0 o 1.
+
+var = PORTA / PORTB
+bitno = numero de bit (0..7)
+
+ejemplo: if (digitalRead( PORTB, 0)==HIGH)
+
+delay(time)
+=========================
+Con esta función generamos un retardo de la cantidad de milisegundos especificada en "time", este parametro no puede superar el valor 250
+
+ejemplo: delay(250);
+
+serial_begin()
+=========================
+Esta función sirve para iniciar la comunicación serial, por defecto en el PORTB el bit 2 TX y el 3 RX, a 9600 baudios.
+Solo se  puede invocar dentro de la funcion "setup" y debajo de todos los "pinMode".
+
+ejemplo: void setup(void)
+	 {
+		serial_begin();
+
+putch(c);
+=========================
+envia el caracter por serial al bit TX.
+
+
+getch(void);
+=========================
+retorna el caracter leido por serial en el bit RX.
+
+
+pap_begin()
+=========================
+Esta función prepara las salidas del PUERTOB los bits 4,5,6 y 7 para controlar un motor pap.
+Solo se  puede invocar dentro de la funcion "setup" y debajo de todos los "pinMode".
+
+ejemplo: void setup(void)
+	 {
+		pap_begin();
+
+
+pap_left()
+=========================
+Hace avanzar un paso el motor pap.
+
+pap_right()
+=========================
+hace retroceder un paso el motor pap.
+
+pap_paso()
+=========================
+retorna el número de paso que se esta ejecutando.
+
+
+
+
+
+
+		
+
+
+
+

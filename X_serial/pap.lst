@@ -1,0 +1,317 @@
+
+
+HI-TECH Software PICC Macro Assembler V8.05PL2
+Serial number: HCPIC-00000                            Mon Nov 13 00:14:53 2017
+
+Licensed to: MITSOS FOREVER
+     1                           	processor	16F84A
+     2                           	opt	pw 79
+     3                           	psect	__Z00000RS_,global,delta=1
+     4                           	psect	text0,local,class=CODE,delta=2
+     5                           	psect	text1,local,class=CODE,delta=2
+     6                           	psect	text2,local,class=CODE,delta=2
+     7                           	psect	text3,local,class=CODE,delta=2
+     8                           	psect	text4,local,class=CODE,delta=2
+     9                           	psect	text5,local,class=CODE,delta=2
+    10                           	psect	text6,local,class=CODE,delta=2
+    11                           	psect	text7,local,class=CODE,delta=2
+    12                           	psect	rbss_0,global,class=BANK0,space=1,delta=
+      +                          1
+    13  0000                     
+    14  0000                     
+    15  0000                     
+    16  0000                     
+    17  0000                     
+    18  0000                     
+    19  0000                     
+    20  0000                     
+    21  0000                     
+    22  0000                     
+    23                           
+    24                           	psect	__Z00000RS_
+    25  003C                     
+    26  003C                     
+    27                           
+    28                           	psect	text0
+    29  00D8                     _pap_begin
+    30                           ;pap.c: 17: TRISB &= 0b00001111;
+    31  00D8  300F               	movlw	15
+    32  00D9  1683               	bsf	3,5
+    33  00DA  0586               	andwf	6	;volatile
+    34                           ;pap.c: 19: secuencia[0]=0b00010000;
+    35  00DB  3010               	movlw	16
+    36  00DC  1283               	bcf	3,5
+    37  00DD  0092               	movwf	_secuencia
+    38                           ;pap.c: 20: secuencia[1]=0b00100000;
+    39  00DE  3020               	movlw	32
+    40  00DF  0093               	movwf	_secuencia+1
+    41                           ;pap.c: 21: secuencia[2]=0b01000000;
+    42  00E0  3040               	movlw	64
+    43  00E1  0094               	movwf	_secuencia+2
+    44                           ;pap.c: 22: secuencia[3]=0b10000000;
+    45  00E2  3080               	movlw	-128
+    46  00E3  0095               	movwf	_secuencia+3
+    47                           ;pap.c: 23: secuencia[4]=0b00000000;
+    48  00E4  0196               	clrf	_secuencia+4
+    49                           ;pap.c: 25: Paso=0;
+    50  00E5  0190               	clrf	_Paso
+    51                           ;pap.c: 26: ld=0;
+    52  00E6  0191               	clrf	_ld
+    53                           ;pap.c: 28: }
+    54  00E7  0008               	return
+    55                           
+    56                           	psect	text1
+    57  008B                     _buff_pap
+    58                           ;	_temp assigned to ?a_buff_pap+0
+    59  0000                     _buff_pap$temp	set	?a_buff_pap
+    60                           ;pap.c: 32: unsigned char temp;
+    61  008B  1283               	bcf	3,5
+    62  008C  0E06               	swapf	6,w	;volatile
+    63  008D  39F0               	andlw	240
+    64  008E  00A2               	movwf	?a_buff_pap
+    65                           ;pap.c: 35: temp = temp >> 4;
+    66  008F  0EA2               	swapf	?a_buff_pap
+    67  0090  300F               	movlw	15
+    68  0091  05A2               	andwf	?a_buff_pap
+    69                           ;pap.c: 39: return temp;
+    70  0092  0822               	movf	?a_buff_pap,w
+    71                           ;pap.c: 40: }
+    72  0093  0008               	return
+    73                           
+    74                           	psect	text2
+    75  00A7                     _pap_stop
+    76                           ;pap.c: 45: PORTB = secuencia[4] | buff_pap();
+    77  00A7  1283               	bcf	3,5
+    78  00A8  208B               	call	_buff_pap
+    79  00A9  0416               	iorwf	_secuencia+4,w
+    80  00AA  0086               	movwf	6	;volatile
+    81                           ;pap.c: 47: if (ld==1)
+    82  00AB  0B11               	decfsz	_ld,w
+    83  00AC  28B0               	goto	l4
+    84                           ;pap.c: 48: PORTA = secuencia[4] >> 4;
+    85  00AD  0E16               	swapf	_secuencia+4,w
+    86  00AE  390F               	andlw	15
+    87  00AF  0085               	movwf	5	;volatile
+    88  00B0                     l4
+    89                           ;pap.c: 50: Paso=0;
+    90  00B0  0190               	clrf	_Paso
+    91                           ;pap.c: 51: }
+    92  00B1  0008               	return
+    93                           
+    94                           	psect	text3
+    95                           ;pap.c: 54: void pap_left(void){
+    96  0162                     _pap_left
+    97                           ;pap.c: 56: if (Paso==3)
+    98  0162  1283               	bcf	3,5
+    99  0163  0810               	movf	_Paso,w
+   100  0164  3A03               	xorlw	3
+   101  0165  1D03               	btfss	3,2
+   102  0166  2969               	goto	l6
+   103                           ;pap.c: 57: Paso=0;
+   104  0167  0190               	clrf	_Paso
+   105                           ;pap.c: 58: else
+   106  0168  296A               	goto	l7
+   107  0169                     l6
+   108                           ;pap.c: 59: Paso++;
+   109  0169  0A90               	incf	_Paso
+   110  016A                     l7
+   111                           ;pap.c: 61: PORTB = secuencia[Paso] | buff_pap(
+      +                          );
+   112  016A  0810               	movf	_Paso,w
+   113  016B  3E12               	addlw	_secuencia
+   114  016C  0084               	movwf	4
+   115  016D  1283               	bcf	3,5
+   116  016E  208B               	call	_buff_pap
+   117  016F  0400               	iorwf	0,w
+   118  0170  0086               	movwf	6	;volatile
+   119                           ;pap.c: 63: if (ld==1)
+   120  0171  0B11               	decfsz	_ld,w
+   121  0172  0008               	return
+   122                           ;pap.c: 64: PORTA = secuencia[Paso] >> 4;
+   123  0173  0810               	movf	_Paso,w
+   124  0174  3E12               	addlw	_secuencia
+   125  0175  0084               	movwf	4
+   126  0176  0E00               	swapf	0,w
+   127  0177  390F               	andlw	15
+   128  0178  0085               	movwf	5	;volatile
+   129                           ;pap.c: 65: }
+   130  0179  0008               	return
+   131                           
+   132                           	psect	text4
+   133                           ;pap.c: 68: void pap_right(void)
+   134                           ;pap.c: 69: {
+   135  014A                     _pap_right
+   136                           ;pap.c: 70: if (Paso==0)
+   137  014A  1283               	bcf	3,5
+   138  014B  0890               	movf	_Paso
+   139  014C  1D03               	btfss	3,2
+   140  014D  2951               	goto	l10
+   141                           ;pap.c: 71: Paso=3;
+   142  014E  3003               	movlw	3
+   143  014F  0090               	movwf	_Paso
+   144                           ;pap.c: 72: else
+   145  0150  2952               	goto	l11
+   146  0151                     l10
+   147                           ;pap.c: 73: Paso--;
+   148  0151  0390               	decf	_Paso
+   149  0152                     l11
+   150                           ;pap.c: 75: PORTB = secuencia[Paso] | buff_pap(
+      +                          );
+   151  0152  0810               	movf	_Paso,w
+   152  0153  3E12               	addlw	_secuencia
+   153  0154  0084               	movwf	4
+   154  0155  1283               	bcf	3,5
+   155  0156  208B               	call	_buff_pap
+   156  0157  0400               	iorwf	0,w
+   157  0158  0086               	movwf	6	;volatile
+   158                           ;pap.c: 77: if (ld==1)
+   159  0159  0B11               	decfsz	_ld,w
+   160  015A  0008               	return
+   161                           ;pap.c: 78: PORTA = secuencia[Paso] >> 4;
+   162  015B  0810               	movf	_Paso,w
+   163  015C  3E12               	addlw	_secuencia
+   164  015D  0084               	movwf	4
+   165  015E  0E00               	swapf	0,w
+   166  015F  390F               	andlw	15
+   167  0160  0085               	movwf	5	;volatile
+   168                           ;pap.c: 79: }
+   169  0161  0008               	return
+   170                           
+   171                           	psect	text5
+   172                           ;pap.c: 82: char pap_paso(void)
+   173                           ;pap.c: 83: {
+   174  005B                     _pap_paso
+   175                           ;pap.c: 84: return Paso;
+   176  005B  1283               	bcf	3,5
+   177  005C  0810               	movf	_Paso,w
+   178                           ;pap.c: 85: }
+   179  005D  0008               	return
+   180                           
+   181                           	psect	text6
+   182                           ;pap.c: 88: void pap_led_test(void)
+   183                           ;pap.c: 89: {
+   184  005E                     _pap_led_test
+   185                           ;pap.c: 90: ld = 1;
+   186  005E  1283               	bcf	3,5
+   187  005F  0191               	clrf	_ld
+   188  0060  0A91               	incf	_ld
+   189                           ;pap.c: 91: }
+   190  0061  0008               	return
+   191                           
+   192                           	psect	text7
+   193  0000                     
+   194  0000                     
+   195  0000                     
+   196  0000                     
+   197  0000                     
+   198  0000                     
+   199  0000                     
+   200  0000                     
+   201  0000                     
+   202  0000                     
+   203  0000                     
+   204  0000                     
+   205  0000                     
+   206  0000                     
+   207  0000                     
+   208  0000                     
+   209  0000                     
+   210  0000                     
+   211  0000                     
+   212  0000                     
+   213  0000                     
+   214  0000                     
+   215  0000                     
+   216  0000                     
+   217  0000                     
+   218  0000                     
+   219  0000                     
+   220  0000                     
+   221  0000                     
+   222  0000                     
+   223  0000                     
+   224  0000                     
+   225  0000                     
+   226  0000                     
+   227  0000                     
+   228  0000                     
+   229  0000                     
+   230  0000                     
+   231  0000                     
+   232  0000                     
+   233  0000                     
+   234  0000                     
+   235  0000                     
+   236  0000                     
+   237  0000                     
+   238  0000                     
+   239  0000                     
+   240  0000                     
+   241  0000                     
+   242  0000                     
+   243  0000                     
+   244  0000                     
+   245  0000                     
+   246  0000                     
+   247  0000                     
+   248  0000                     
+   249  0000                     
+   250  0000                     
+   251  0000                     
+   252  0000                     
+   253  0000                     
+   254  0000                     
+   255  0000                     
+   256  0000                     
+   257  0000                     
+   258  0000                     
+   259  0000                     
+   260  0000                     
+   261  0000                     
+   262  0000                     
+   263  0000                     
+   264  0000                     
+   265  0000                     
+   266  0000                     
+   267  0000                     
+   268  0000                     
+   269  0000                     
+   270  0000                     
+   271  0000                     
+   272  0000                     
+   273  0000                     
+   274  0000                     
+   275  0000                     
+   276  0000                     
+   277  0000                     
+   278  0000                     
+   279  0000                     
+   280  0000                     
+   281  0000                     
+   282  0000                     
+   283  0000                     
+   284                           
+   285                           	psect	rbss_0
+   286  0010                     _Paso
+   287  0010                     	ds	1
+   288  0000                     
+   289  0000                     
+   290  0000                     
+   291  0000                     
+   292  0000                     
+   293  0011                     _ld
+   294  0011                     	ds	1
+   295  0012                     _secuencia
+   296  0012                     	ds	5
+
+
+HI-TECH Software PICC Macro Assembler V8.05PL2
+Symbol Table                                          Mon Nov 13 00:14:53 2017
+
+            l4 00B0              l6 0169              l7 016A  
+           l10 0151             l11 0152             _ld 0011  
+     _buff_pap 008B             fsr 0004       _pap_left 0162  
+     _pap_paso 005B       _pap_stop 00A7           _Paso 0010  
+    _pap_begin 00D8      _pap_right 014A      _secuencia 0012  
+   ?a_buff_pap 0022   _pap_led_test 005E          status 0003  
+   clear_bank0 0017  
