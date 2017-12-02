@@ -3,7 +3,7 @@ import time
 
 
 #Se abre el archivo en forma de lectura y se lo asigna en una variable
-archivo = open("circulo_1_0001.gcode", "r")
+archivo = open("cuadrado_3_0001.gcode", "r")
 
 #CONSTANTES
 pasosMX = 0.41667
