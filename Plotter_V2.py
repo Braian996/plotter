@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import sys
 sys.path.append('C:\\Python27\\lib\\site-packages\\wx-3.0-msw')
-import wx
+import wx #Se importa la libreria para grafico
 import serial
 import time
 
@@ -73,7 +73,7 @@ class Main(wx.Frame):
 		self.btn_right15.Disable()
 		self.btn_right20.Disable()
 		self.btn_mover.Disable()
-		self.btn_open.Disable()
+		#self.btn_open.Disable()
 		#---FIN---
 		#Habilitando EVENTOS
 		self.panel.Bind(wx.EVT_TOGGLEBUTTON, self.OnConect, self.btn_conectar)
@@ -329,6 +329,7 @@ class Main(wx.Frame):
 						#MOVIMIENTO DE AMBOS MOTORES
 						#X SUPERA A Y
 						if pasosx > pasosy and pasosy > 1:
+							print "MOTOR Y SUPERA A MOTOR X"
 							while contX < (pasosx + 1):
 								intYaux = convertir_num_decimal_string(str(pasosy/pasosx)) #Calcula la interseccion de ambos motores
 								intY = int(intYaux)
@@ -348,6 +349,7 @@ class Main(wx.Frame):
 						else:
 							#Y SUPERA A X
 							if pasosy > pasosx and pasosx > 1:
+								print "MOTOR Y SUPERA A MOTOR X"
 								while contY < (pasosy +1):
 									intXaux = convertir_num_decimal_string(str(pasosx/pasosy)) #Calcula la interseccion de ambos MOTORES
 									intX = int(intXaux)
@@ -363,10 +365,11 @@ class Main(wx.Frame):
 									b1 = int(str(a1), 2)
 									ser.write(chr(b1)) #Manda movimiento
 									time.sleep(.008)
-									contX = contX + 1
+									contY = contY + 1
 							else:
 								#MOVIMIENTO DE AMBOS MOTORES A LA PAR
 								if pasosx == pasosy and (pasosx > 1 and pasosy > 1):
+									print "AMBOS MOTORES A LA PAR"
 									pm1 = 1
 									pm2 = 1
 									for n in range (1, pasosx+1):
@@ -379,6 +382,7 @@ class Main(wx.Frame):
 								else:
 									#MOVIMIENTO SOLO DE MOTOR X
 									if pasosx > 1 and (pasosy >= 0 and pasosy <= 1):
+										print "MOVIMIENTO SOLO EN X"
 										pm1 = 1
 										pm2 = 0
 										for n in range(1,pasosx+1):
@@ -391,16 +395,17 @@ class Main(wx.Frame):
 										ser.write(chr(int('00000000',2)))
 									else:
 										#MOVIMIENTO SOLO DE MOTOR Y
-										if pasosy > 1 (pasosx >= 0 and pasosy <= 1):
+										if pasosy > 1 and (pasosx >= 0 and pasosx <= 1):
+											print "MOVIMIENTO SOLO EN Y"
 											pm1 = 0
 											pm2 = 1
 											for n in range(1,pasosy+1):
 												ser.write(chr(int('00000000',2))) #Manda cero primero
-												time.sleep(.002)
+												time.sleep(.02)
 												a = '0000'+str(pm1)+str(DirMX)+str(pm2)+str(DirMY)
 												d = int(str(a), 2)
 												ser.write(chr(d)) #Manda movimiento
-												time.sleep(.002)
+												time.sleep(.02)
 											ser.write(chr(int('00000000',2)))
 
 
