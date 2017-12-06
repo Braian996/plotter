@@ -1,0 +1,31 @@
+%
+(Encabezamiento)
+(Generado por gcodetools desde Inkscape.)
+(Usando encabezamiento por defecto. Para generar tu propio encabezamiento crea un archivo "header" en el directorio de salida.)
+M3
+(Fin Encabezamiento.)
+G21 (Todas las unidades en mm)
+ 
+G00 Z5.000000
+G00 X97.568253 Y150.787305
+
+G01 Z-1.000000 F1.0
+G02 X91.015060 Y134.762720 Z-1.000000 I-22.869134 J-0.000000 F400.000000
+G02 X75.393649 Y128.209528 Z-1.000000 I-15.621411 J15.342458
+G02 X59.772240 Y134.762720 Z-1.000000 I-0.000000 J21.895645
+G02 X53.219048 Y150.787305 Z-1.000000 I16.315944 J16.024585
+G02 X59.772240 Y166.811891 Z-1.000000 I22.869136 J0.000000
+G02 X75.393649 Y173.365083 Z-1.000000 I15.621409 J-15.342453
+G02 X91.015060 Y166.811891 Z-1.000000 I0.000000 J-21.895650
+G02 X97.568253 Y150.787305 Z-1.000000 I-16.315941 J-16.024586
+G01 X97.568253 Y150.787305 Z-1.000000
+G00 Z5.000000
+
+
+(Pie de pagina)
+M5
+G00 X0.0000 Y0.0000
+M2
+(Usando pie por defecto. Para añadir tu propio pie crea un archivo "footer" en el directorio de salida.)
+(end)
+%
