@@ -1,7 +1,7 @@
 
 
 HI-TECH Software PICC Macro Assembler V8.05PL2
-Serial number: HCPIC-00000                            Wed Dec  6 21:21:16 2017
+Serial number: HCPIC-00000                            Thu Dec  7 02:02:21 2017
 
 Licensed to: MITSOS FOREVER
      1                           	processor	16F84A
@@ -32,119 +32,119 @@ Licensed to: MITSOS FOREVER
     24  0028                     
     25                           
     26                           	psect	text0
-    27  0289                     _hc595Begin
+    27  028C                     _hc595Begin
     28                           ;hc595.c: 21: TRISA = 0b00000000;
-    29  0289  1683               	bsf	3,5
-    30  028A  0185               	clrf	5	;volatile
+    29  028C  1683               	bsf	3,5
+    30  028D  0185               	clrf	5	;volatile
     31                           ;hc595.c: 22: fpa = PORTA;
-    32  028B  1283               	bcf	3,5
-    33  028C  0805               	movf	5,w	;volatile
-    34  028D  00A0               	movwf	_fpa
+    32  028E  1283               	bcf	3,5
+    33  028F  0805               	movf	5,w	;volatile
+    34  0290  00A0               	movwf	_fpa
     35                           ;hc595.c: 23: }
-    36  028E  0008               	return
+    36  0291  0008               	return
     37                           
     38                           	psect	text1
-    39  02BB                     _hc595Init
+    39  02BE                     _hc595Init
     40                           ;hc595.c: 26: fpa=PORTA;
-    41  02BB  1283               	bcf	3,5
-    42  02BC  0805               	movf	5,w	;volatile
-    43  02BD  00A0               	movwf	_fpa
+    41  02BE  1283               	bcf	3,5
+    42  02BF  0805               	movf	5,w	;volatile
+    43  02C0  00A0               	movwf	_fpa
     44                           ;hc595.c: 28: ((fpa) |= (1 << (0)));
-    45  02BE  1420               	bsf	_fpa,0
+    45  02C1  1420               	bsf	_fpa,0
     46                           ;hc595.c: 29: ((fpa) &= ~(1 << (1)));
-    47  02BF  10A0               	bcf	_fpa,1
+    47  02C2  10A0               	bcf	_fpa,1
     48                           ;hc595.c: 30: ((fpa) &= ~(1 << (2)));
-    49  02C0  1120               	bcf	_fpa,2
+    49  02C3  1120               	bcf	_fpa,2
     50                           ;hc595.c: 31: ((fpa) &= ~(1 << (3)));
-    51  02C1  11A0               	bcf	_fpa,3
+    51  02C4  11A0               	bcf	_fpa,3
     52                           ;hc595.c: 33: PORTA=fpa;
-    53  02C2  0820               	movf	_fpa,w
-    54  02C3  0085               	movwf	5	;volatile
+    53  02C5  0820               	movf	_fpa,w
+    54  02C6  0085               	movwf	5	;volatile
     55                           ;hc595.c: 34: }
-    56  02C4  0008               	return
+    56  02C7  0008               	return
     57                           
     58                           	psect	text2
-    59  0366                     _hc595Data
+    59  0369                     _hc595Data
     60                           ;	_paquete assigned to ?a_hc595Data+0
     61  0000                     _hc595Data$paquete	set	?a_hc595Data
     62                           ;	_i assigned to ?a_hc595Data+1
     63  0000                     _hc595Data$i	set	?a_hc595Data+1
     64                           ;_paquete stored from w
-    65  0366  1283               	bcf	3,5
-    66  0367  00A3               	movwf	?a_hc595Data
+    65  0369  1283               	bcf	3,5
+    66  036A  00A3               	movwf	?a_hc595Data
     67                           ;hc595.c: 38: char i;
-    68  0368  01A4               	clrf	?a_hc595Data+1
-    69  0369                     l4
+    68  036B  01A4               	clrf	?a_hc595Data+1
+    69  036C                     l4
     70                           ;hc595.c: 42: {
     71                           ;hc595.c: 44: if (((paquete) & (1 << (7-i))))
-    72  0369  3001               	movlw	1
-    73  036A  00A6               	movwf	btemp
-    74  036B  0824               	movf	?a_hc595Data+1,w
-    75  036C  3C07               	sublw	7
-    76  036D  00A7               	movwf	btemp+1
-    77  036E  0AA7               	incf	btemp+1
-    78  036F  2B72               	goto	u14
-    79  0370                     u15
-    80  0370  1003               	bcf	3,0
-    81  0371  0DA6               	rlf	btemp
-    82  0372                     u14
-    83  0372  0BA7               	decfsz	btemp+1
-    84  0373  2B70               	goto	u15
-    85  0374  0826               	movf	btemp,w
-    86  0375  0523               	andwf	?a_hc595Data,w
-    87  0376  1903               	btfsc	3,2
-    88  0377  2B7A               	goto	l7
+    72  036C  3001               	movlw	1
+    73  036D  00A6               	movwf	btemp
+    74  036E  0824               	movf	?a_hc595Data+1,w
+    75  036F  3C07               	sublw	7
+    76  0370  00A7               	movwf	btemp+1
+    77  0371  0AA7               	incf	btemp+1
+    78  0372  2B75               	goto	u14
+    79  0373                     u15
+    80  0373  1003               	bcf	3,0
+    81  0374  0DA6               	rlf	btemp
+    82  0375                     u14
+    83  0375  0BA7               	decfsz	btemp+1
+    84  0376  2B73               	goto	u15
+    85  0377  0826               	movf	btemp,w
+    86  0378  0523               	andwf	?a_hc595Data,w
+    87  0379  1903               	btfsc	3,2
+    88  037A  2B7D               	goto	l7
     89                           ;hc595.c: 45: ((fpa) |= (1 << (4)));
-    90  0378  1620               	bsf	_fpa,4
+    90  037B  1620               	bsf	_fpa,4
     91                           ;hc595.c: 46: else
-    92  0379  2B7B               	goto	l8
-    93  037A                     l7
+    92  037C  2B7E               	goto	l8
+    93  037D                     l7
     94                           ;hc595.c: 47: ((fpa) &= ~(1 << (4)));
-    95  037A  1220               	bcf	_fpa,4
-    96  037B                     l8
+    95  037D  1220               	bcf	_fpa,4
+    96  037E                     l8
     97                           ;hc595.c: 49: PORTA=fpa;
-    98  037B  0820               	movf	_fpa,w
-    99  037C  0085               	movwf	5	;volatile
+    98  037E  0820               	movf	_fpa,w
+    99  037F  0085               	movwf	5	;volatile
    100                           ;hc595.c: 50: delay(1);
-   101  037D  3001               	movlw	1
-   102  037E  1283               	bcf	3,5
-   103  037F  22D0               	call	_delay
+   101  0380  3001               	movlw	1
+   102  0381  1283               	bcf	3,5
+   103  0382  22D3               	call	_delay
    104                           ;hc595.c: 52: ((fpa) |= (1 << (1)));
-   105  0380  14A0               	bsf	_fpa,1
+   105  0383  14A0               	bsf	_fpa,1
    106                           ;hc595.c: 53: PORTA=fpa;
-   107  0381  0820               	movf	_fpa,w
-   108  0382  0085               	movwf	5	;volatile
+   107  0384  0820               	movf	_fpa,w
+   108  0385  0085               	movwf	5	;volatile
    109                           ;hc595.c: 54: delay(1);
-   110  0383  3001               	movlw	1
-   111  0384  22D0               	call	_delay
+   110  0386  3001               	movlw	1
+   111  0387  22D3               	call	_delay
    112                           ;hc595.c: 55: ((fpa) &= ~(1 << (1)));
-   113  0385  10A0               	bcf	_fpa,1
+   113  0388  10A0               	bcf	_fpa,1
    114                           ;hc595.c: 56: PORTA=fpa;
-   115  0386  0820               	movf	_fpa,w
-   116  0387  0085               	movwf	5	;volatile
+   115  0389  0820               	movf	_fpa,w
+   116  038A  0085               	movwf	5	;volatile
    117                           ;hc595.c: 58: }
-   118  0388  0AA4               	incf	?a_hc595Data+1
-   119  0389  3008               	movlw	8
-   120  038A  0224               	subwf	?a_hc595Data+1,w
-   121  038B  1803               	btfsc	3,0
-   122  038C  0008               	return
-   123  038D  2B69               	goto	l4
+   118  038B  0AA4               	incf	?a_hc595Data+1
+   119  038C  3008               	movlw	8
+   120  038D  0224               	subwf	?a_hc595Data+1,w
+   121  038E  1803               	btfsc	3,0
+   122  038F  0008               	return
+   123  0390  2B6C               	goto	l4
    124                           
    125                           	psect	text3
    126                           ;hc595.c: 61: void hc595End(void){
-   127  02A2                     _hc595End
+   127  02A5                     _hc595End
    128                           ;hc595.c: 62: ((fpa) |= (1 << (0)));
-   129  02A2  1283               	bcf	3,5
-   130  02A3  1420               	bsf	_fpa,0
+   129  02A5  1283               	bcf	3,5
+   130  02A6  1420               	bsf	_fpa,0
    131                           ;hc595.c: 63: ((fpa) |= (1 << (2)));
-   132  02A4  1520               	bsf	_fpa,2
+   132  02A7  1520               	bsf	_fpa,2
    133                           ;hc595.c: 64: ((fpa) &= ~(1 << (3)));
-   134  02A5  11A0               	bcf	_fpa,3
+   134  02A8  11A0               	bcf	_fpa,3
    135                           ;hc595.c: 65: PORTA=fpa;
-   136  02A6  0820               	movf	_fpa,w
-   137  02A7  0085               	movwf	5	;volatile
+   136  02A9  0820               	movf	_fpa,w
+   137  02AA  0085               	movwf	5	;volatile
    138                           ;hc595.c: 66: }
-   139  02A8  0008               	return
+   139  02AB  0008               	return
    140                           
    141                           	psect	text4
    142  0000                     
@@ -254,11 +254,11 @@ Licensed to: MITSOS FOREVER
 
 
 HI-TECH Software PICC Macro Assembler V8.05PL2
-Symbol Table                                          Wed Dec  6 21:21:16 2017
+Symbol Table                                          Thu Dec  7 02:02:21 2017
 
-                l4 0369                  l7 037A                  l8 037B  
-       _hc595Begin 0289                 u14 0372                 u15 0370  
+                l4 036C                  l7 037D                  l8 037E  
+       _hc595Begin 028C                 u14 0375                 u15 0373  
               _fpa 0020               btemp 0026        ?a_hc595Data 0023  
-        _hc595Data 0366          _hc595Init 02BB              _delay 02D0  
-            status 0003           _hc595End 02A2         clear_bank0 0017  
+        _hc595Data 0369          _hc595Init 02BE              _delay 02D3  
+            status 0003           _hc595End 02A5         clear_bank0 0017  
        used_btemp0 0001         used_btemp1 0001  

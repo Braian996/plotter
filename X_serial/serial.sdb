@@ -139,7 +139,7 @@
 [v _WR `VXb  1 s 0 @1089 ]
 "98
 [v _RD `VXb  1 s 0 @1088 ]
-"42 E:\plotter-master\X_serial\serial.c
+"42 D:\plotter\X_serial\serial.c
 [v _TxData `b  1 s 0 @40 ]
 "43
 [v _RxData `b  1 s 0 @41 ]

@@ -1,5 +1,5 @@
 [p GLOBOPT AUTOSTATIC PIC14 PICMIDHI PICLOMID ]
-"12 E:\plotter-master\X_serial\delay.c
+"12 D:\plotter\X_serial\delay.c
 [v _delay `(v  1 e 0 0 ]
 {
 [v _cnt `uc  1 a 1 w ]

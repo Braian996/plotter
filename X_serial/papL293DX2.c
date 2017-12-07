@@ -33,6 +33,15 @@ void papX2Begin(void)
 //      M1M2   Motor1 Motor2
 void papMove(unsigned char pActual)
 {
+
+	if(!!bit_test(pActual,4)==1){
+		//bit_set(PORTA, 3);
+		RA3 = 1;
+	}
+	else{
+		//bit_clr(PORTA, 3);
+		RA3 = 0;
+	} 
 	//Motor1
 	//si paso de estar en 0 a estar en 1
 	if (!!bit_test(pActual,3)==1 && !!bit_test(pAnterior,3)==0)
@@ -73,14 +82,7 @@ void papMove(unsigned char pActual)
 		}
 	}
 
-	if(bit_test(pActual, 4) == 1){
-		//bit_set(PORTA, 3);
-		RA3 = 1;
-	}
-	else{
-		//bit_clr(PORTA, 3);
-		RA3 = 0;
-	} 
+
 
 	PORTB = sM[m1Ciclo] | (sM[m2Ciclo]>>4); //envio al motor
 	pAnterior = pActual; //lo actual ahora es lo anterior

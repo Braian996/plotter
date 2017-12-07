@@ -1,7 +1,7 @@
 
 
 HI-TECH Software PICC Macro Assembler V8.05PL2
-Serial number: HCPIC-00000                            Wed Dec  6 21:21:11 2017
+Serial number: HCPIC-00000                            Thu Dec  7 02:02:18 2017
 
 Licensed to: MITSOS FOREVER
      1                           	processor	16F84A
@@ -30,16 +30,16 @@ Licensed to: MITSOS FOREVER
     23  0028                     
     24                           
     25                           	psect	text0
-    26  0276                     _serial_begin
+    26  0279                     _serial_begin
     27                           ;serial.c: 50: TRISA |= 1<<1;
-    28  0276  1683               	bsf	3,5
-    29  0277  1485               	bsf	5,1	;volatile
+    28  0279  1683               	bsf	3,5
+    29  027A  1485               	bsf	5,1	;volatile
     30                           ;serial.c: 51: }
-    31  0278  1283               	bcf	3,5
-    32  0279  0008               	return
+    31  027B  1283               	bcf	3,5
+    32  027C  0008               	return
     33                           
     34                           	psect	text1
-    35  030A                     _putch
+    35  030D                     _putch
     36                           ;	_bitno assigned to ?a_putch+0
     37  0000                     _putch$bitno	set	?a_putch
     38                           ;	_dly assigned to ?a_putch+1
@@ -47,121 +47,121 @@ Licensed to: MITSOS FOREVER
     40                           ;	_c assigned to ?a_putch+2
     41  0000                     _putch$c	set	?a_putch+2
     42                           ;_c stored from w
-    43  030A  1283               	bcf	3,5
-    44  030B  00A5               	movwf	?a_putch+2
+    43  030D  1283               	bcf	3,5
+    44  030E  00A5               	movwf	?a_putch+2
     45                           ;serial.c: 56: unsigned char bitno;
-    46  030C  1005               	bcf	5,0
+    46  030F  1005               	bcf	5,0
     47                           ;serial.c: 65: bitno = 12;
-    48  030D  300C               	movlw	12
-    49  030E  00A3               	movwf	?a_putch
-    50  030F                     l5
+    48  0310  300C               	movlw	12
+    49  0311  00A3               	movwf	?a_putch
+    50  0312                     l5
     51                           ;serial.c: 66: do {
     52                           ;serial.c: 67: dly = (((10000000/9600)-(13*4*10
       +                          000000/4000000))/(3*4*10000000/4000000));
-    53  030F  301E               	movlw	30
-    54  0310  00A4               	movwf	?a_putch+1
-    55  0311                     l8
+    53  0312  301E               	movlw	30
+    54  0313  00A4               	movwf	?a_putch+1
+    55  0314                     l8
     56                           ;serial.c: 68: do
     57                           ;serial.c: 69: ;
-    58  0311  0BA4               	decfsz	?a_putch+1
-    59  0312  2B11               	goto	l8
+    58  0314  0BA4               	decfsz	?a_putch+1
+    59  0315  2B14               	goto	l8
     60                           ;serial.c: 71: if(c & 1)
-    61  0313  1825               	btfsc	?a_putch+2,0
+    61  0316  1825               	btfsc	?a_putch+2,0
     62                           ;serial.c: 72: TxData = 1;
-    63  0314  1405               	bsf	5,0
+    63  0317  1405               	bsf	5,0
     64                           ;serial.c: 73: if(!(c & 1))
-    65  0315  1825               	btfsc	?a_putch+2,0
-    66  0316  2B18               	goto	l10
+    65  0318  1825               	btfsc	?a_putch+2,0
+    66  0319  2B1B               	goto	l10
     67                           ;serial.c: 74: TxData = 0;
-    68  0317  1005               	bcf	5,0
-    69  0318                     l10
+    68  031A  1005               	bcf	5,0
+    69  031B                     l10
     70                           ;serial.c: 75: c = (c >> 1) | 0x80;
-    71  0318  1403               	bsf	3,0
-    72  0319  0CA5               	rrf	?a_putch+2
+    71  031B  1403               	bsf	3,0
+    72  031C  0CA5               	rrf	?a_putch+2
     73                           ;serial.c: 76: } while(--bitno);
-    74  031A  0BA3               	decfsz	?a_putch
-    75  031B  2B0F               	goto	l5
+    74  031D  0BA3               	decfsz	?a_putch
+    75  031E  2B12               	goto	l5
     76                           ;serial.c: 77: asm("nop");
-    77  031C  0000               	nop	;#
+    77  031F  0000               	nop	;#
     78                           ;serial.c: 78: }
-    79  031D  0008               	return
+    79  0320  0008               	return
     80                           
     81                           	psect	text2
     82                           ;serial.c: 80: char
     83                           ;serial.c: 81: getch(void)
     84                           ;serial.c: 82: {
-    85  034E                     _getch
+    85  0351                     _getch
     86                           ;	_bitno assigned to ?a_getch+0
     87  0000                     _getch$bitno	set	?a_getch
     88                           ;	_dly assigned to ?a_getch+1
     89  0000                     _getch$dly	set	?a_getch+1
     90                           ;serial.c: 83: unsigned char bitno;
     91                           ;serial.c: 92: while(RxData)
-    92  034E                     l16
+    92  0351                     l16
     93                           ;serial.c: 93: continue;
-    94  034E  1283               	bcf	3,5
-    95  034F  1885               	btfsc	5,1
-    96  0350  2B4E               	goto	l16
+    94  0351  1283               	bcf	3,5
+    95  0352  1885               	btfsc	5,1
+    96  0353  2B51               	goto	l16
     97                           ;serial.c: 94: dly = (((10000000/9600)-(3*4*100
       +                          00000/4000000))/(3*4*10000000/4000000))/2;
-    98  0351  3010               	movlw	16
-    99  0352  00A4               	movwf	?a_getch+1
-   100  0353                     l20
+    98  0354  3010               	movlw	16
+    99  0355  00A4               	movwf	?a_getch+1
+   100  0356                     l20
    101                           ;serial.c: 95: do
    102                           ;serial.c: 96: ;
-   103  0353  0BA4               	decfsz	?a_getch+1
-   104  0354  2B53               	goto	l20
+   103  0356  0BA4               	decfsz	?a_getch+1
+   104  0357  2B56               	goto	l20
    105                           ;serial.c: 98: if(RxData)
-   106  0355  1885               	btfsc	5,1
-   107  0356  2B4E               	goto	l16
+   106  0358  1885               	btfsc	5,1
+   107  0359  2B51               	goto	l16
    108                           ;serial.c: 99: continue;
    109                           ;serial.c: 100: bitno = 8;
-   110  0357  3008               	movlw	8
-   111  0358  00A3               	movwf	?a_getch
+   110  035A  3008               	movlw	8
+   111  035B  00A3               	movwf	?a_getch
    112                           ;serial.c: 101: ca = 0;
-   113  0359  0190               	clrf	_ca
-   114  035A                     l24
+   113  035C  0190               	clrf	_ca
+   114  035D                     l24
    115                           ;serial.c: 102: do {
    116                           ;serial.c: 103: dly = (((10000000/9600)-(12*4*1
       +                          0000000/4000000))/(3*4*10000000/4000000));
-   117  035A  301E               	movlw	30
-   118  035B  00A4               	movwf	?a_getch+1
-   119  035C                     l27
+   117  035D  301E               	movlw	30
+   118  035E  00A4               	movwf	?a_getch+1
+   119  035F                     l27
    120                           ;serial.c: 104: do
    121                           ;serial.c: 105: ;
-   122  035C  0BA4               	decfsz	?a_getch+1
-   123  035D  2B5C               	goto	l27
+   122  035F  0BA4               	decfsz	?a_getch+1
+   123  0360  2B5F               	goto	l27
    124                           ;serial.c: 107: ca = (ca >> 1) | (RxData << 7);
-   125  035E  1003               	bcf	3,0
-   126  035F  1885               	btfsc	5,1
-   127  0360  1403               	bsf	3,0
-   128  0361  0C90               	rrf	_ca
+   125  0361  1003               	bcf	3,0
+   126  0362  1885               	btfsc	5,1
+   127  0363  1403               	bsf	3,0
+   128  0364  0C90               	rrf	_ca
    129                           ;serial.c: 108: } while(--bitno);
-   130  0362  0BA3               	decfsz	?a_getch
-   131  0363  2B5A               	goto	l24
+   130  0365  0BA3               	decfsz	?a_getch
+   131  0366  2B5D               	goto	l24
    132                           ;serial.c: 110: break;
    133                           ;serial.c: 111: }
    134                           ;serial.c: 114: return ca;
-   135  0364  0810               	movf	_ca,w
+   135  0367  0810               	movf	_ca,w
    136                           ;serial.c: 115: }
-   137  0365  0008               	return
+   137  0368  0008               	return
    138                           
    139                           	psect	text3
    140                           ;serial.c: 117: char
    141                           ;serial.c: 118: getche(void)
    142                           ;serial.c: 119: {
-   143  0295                     _getche
+   143  0298                     _getche
    144                           ;	_c assigned to ?a_getche+0
    145  0000                     _getche$c	set	?a_getche
    146                           ;serial.c: 120: char c;
-   147  0295  1283               	bcf	3,5
-   148  0296  234E               	call	_getch
-   149  0297  00A3               	movwf	?a_getche
-   150  0298  230A               	call	_putch
+   147  0298  1283               	bcf	3,5
+   148  0299  2351               	call	_getch
+   149  029A  00A3               	movwf	?a_getche
+   150  029B  230D               	call	_putch
    151                           ;serial.c: 123: return c;
-   152  0299  0823               	movf	?a_getche,w
+   152  029C  0823               	movf	?a_getche,w
    153                           ;serial.c: 124: }
-   154  029A  0008               	return
+   154  029D  0008               	return
    155                           
    156                           	psect	text4
    157  0000                     
@@ -243,11 +243,11 @@ Licensed to: MITSOS FOREVER
 
 
 HI-TECH Software PICC Macro Assembler V8.05PL2
-Symbol Table                                          Wed Dec  6 21:21:11 2017
+Symbol Table                                          Thu Dec  7 02:02:18 2017
 
-           l5 030F             l8 0311       ?a_getch 0023  
-          l10 0318            l20 0353            l24 035A  
-          l16 034E            l27 035C            _ca 0010  
-     ?a_putch 0023      ?a_getche 0023        _getche 0295  
-       _getch 034E         _putch 030A         status 0003  
-  clear_bank0 0017  _serial_begin 0276  
+           l5 0312             l8 0314       ?a_getch 0023  
+          l10 031B            l20 0356            l24 035D  
+          l16 0351            l27 035F            _ca 0010  
+     ?a_putch 0023      ?a_getche 0023        _getche 0298  
+       _getch 0351         _putch 030D         status 0003  
+  clear_bank0 0017  _serial_begin 0279  

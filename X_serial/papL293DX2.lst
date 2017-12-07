@@ -1,7 +1,7 @@
 
 
 HI-TECH Software PICC Macro Assembler V8.05PL2
-Serial number: HCPIC-00000                            Wed Dec  6 21:21:15 2017
+Serial number: HCPIC-00000                            Thu Dec  7 02:02:21 2017
 
 Licensed to: MITSOS FOREVER
      1                           	processor	16F84A
@@ -32,182 +32,182 @@ Licensed to: MITSOS FOREVER
     24  0028                     
     25                           
     26                           	psect	text0
-    27  02EA                     _papX2Begin
+    27  02ED                     _papX2Begin
     28                           ;papL293DX2.c: 18: TRISB = 0b00000000;
-    29  02EA  1683               	bsf	3,5
-    30  02EB  0186               	clrf	6	;volatile
+    29  02ED  1683               	bsf	3,5
+    30  02EE  0186               	clrf	6	;volatile
     31                           ;papL293DX2.c: 20: sM[0]=0b00010000;
-    32  02EC  3010               	movlw	16
-    33  02ED  1283               	bcf	3,5
-    34  02EE  009B               	movwf	_sM
+    32  02EF  3010               	movlw	16
+    33  02F0  1283               	bcf	3,5
+    34  02F1  009B               	movwf	_sM
     35                           ;papL293DX2.c: 21: sM[1]=0b00100000;
-    36  02EF  3020               	movlw	32
-    37  02F0  009C               	movwf	_sM+1
+    36  02F2  3020               	movlw	32
+    37  02F3  009C               	movwf	_sM+1
     38                           ;papL293DX2.c: 22: sM[2]=0b01000000;
-    39  02F1  3040               	movlw	64
-    40  02F2  009D               	movwf	_sM+2
+    39  02F4  3040               	movlw	64
+    40  02F5  009D               	movwf	_sM+2
     41                           ;papL293DX2.c: 23: sM[3]=0b10000000;
-    42  02F3  3080               	movlw	-128
-    43  02F4  009E               	movwf	_sM+3
+    42  02F6  3080               	movlw	-128
+    43  02F7  009E               	movwf	_sM+3
     44                           ;papL293DX2.c: 24: sM[4]=0b00000000;
-    45  02F5  019F               	clrf	_sM+4
+    45  02F8  019F               	clrf	_sM+4
     46                           ;papL293DX2.c: 26: pAnterior=0b00000000;
-    47  02F6  019A               	clrf	_pAnterior
+    47  02F9  019A               	clrf	_pAnterior
     48                           ;papL293DX2.c: 27: m1Ciclo=0;
-    49  02F7  0198               	clrf	_m1Ciclo
+    49  02FA  0198               	clrf	_m1Ciclo
     50                           ;papL293DX2.c: 28: m2Ciclo=0;
-    51  02F8  0199               	clrf	_m2Ciclo
+    51  02FB  0199               	clrf	_m2Ciclo
     52                           ;papL293DX2.c: 29: }
-    53  02F9  0008               	return
+    53  02FC  0008               	return
     54                           
     55                           	psect	text1
-    56  03BF                     _papMove
+    56  03C2                     _papMove
     57                           ;	_pActual assigned to ?a_papMove+0
     58  0000                     _papMove$pActual	set	?a_papMove
     59                           ;_pActual stored from w
-    60  03BF  1283               	bcf	3,5
-    61  03C0  00A3               	movwf	?a_papMove
-    62                           ;papL293DX2.c: 38: if (!!((pActual) & (1 << (3)
+    60  03C2  1283               	bcf	3,5
+    61  03C3  00A3               	movwf	?a_papMove
+    62                           ;papL293DX2.c: 37: if(!!((pActual) & (1 << (4))
+      +                          )==1){
+    63  03C4  1E23               	btfss	?a_papMove,4
+    64  03C5  2BC8               	goto	l3
+    65                           ;papL293DX2.c: 39: RA3 = 1;
+    66  03C6  1585               	bsf	5,3
+    67                           ;papL293DX2.c: 40: }
+    68  03C7  2BC9               	goto	l4
+    69  03C8                     l3
+    70                           ;papL293DX2.c: 43: RA3 = 0;
+    71  03C8  1185               	bcf	5,3
+    72  03C9                     l4
+    73                           ;papL293DX2.c: 44: }
+    74                           ;papL293DX2.c: 47: if (!!((pActual) & (1 << (3)
       +                          ))==1 && !!((pAnterior) & (1 << (3)))==0)
-    63  03C1  19A3               	btfsc	?a_papMove,3
-    64  03C2  199A               	btfsc	_pAnterior,3
-    65  03C3  2BD5               	goto	l3
-    66                           ;papL293DX2.c: 39: {
-    67  03C4  1D23               	btfss	?a_papMove,2
-    68  03C5  2BCE               	goto	l4
-    69                           ;papL293DX2.c: 41: {
-    70  03C6  0818               	movf	_m1Ciclo,w
-    71  03C7  3A03               	xorlw	3
-    72  03C8  1D03               	btfss	3,2
-    73  03C9  2BCC               	goto	l5
-    74                           ;papL293DX2.c: 43: m1Ciclo=0;
-    75  03CA  0198               	clrf	_m1Ciclo
-    76                           ;papL293DX2.c: 44: else
-    77  03CB  2BD5               	goto	l3
-    78  03CC                     l5
-    79                           ;papL293DX2.c: 45: m1Ciclo++;
-    80  03CC  0A98               	incf	_m1Ciclo
-    81                           ;papL293DX2.c: 46: }
-    82  03CD  2BD5               	goto	l3
-    83  03CE                     l4
-    84                           ;papL293DX2.c: 48: {
-    85  03CE  0898               	movf	_m1Ciclo
-    86  03CF  1D03               	btfss	3,2
-    87  03D0  2BD4               	goto	l8
-    88                           ;papL293DX2.c: 50: m1Ciclo=3;
-    89  03D1  3003               	movlw	3
-    90  03D2  0098               	movwf	_m1Ciclo
-    91                           ;papL293DX2.c: 51: else
-    92  03D3  2BD5               	goto	l3
-    93  03D4                     l8
-    94                           ;papL293DX2.c: 52: m1Ciclo--;
-    95  03D4  0398               	decf	_m1Ciclo
-    96                           ;papL293DX2.c: 53: }
-    97  03D5                     l3
-    98                           ;papL293DX2.c: 54: }
-    99  03D5  18A3               	btfsc	?a_papMove,1
-   100  03D6  189A               	btfsc	_pAnterior,1
-   101  03D7  2BE9               	goto	l10
-   102                           ;papL293DX2.c: 59: {
-   103  03D8  1C23               	btfss	?a_papMove,0
-   104  03D9  2BE2               	goto	l11
-   105                           ;papL293DX2.c: 61: {
-   106  03DA  0819               	movf	_m2Ciclo,w
-   107  03DB  3A03               	xorlw	3
-   108  03DC  1D03               	btfss	3,2
-   109  03DD  2BE0               	goto	l12
-   110                           ;papL293DX2.c: 63: m2Ciclo=0;
-   111  03DE  0199               	clrf	_m2Ciclo
-   112                           ;papL293DX2.c: 64: else
-   113  03DF  2BE9               	goto	l10
-   114  03E0                     l12
-   115                           ;papL293DX2.c: 65: m2Ciclo++;
-   116  03E0  0A99               	incf	_m2Ciclo
-   117                           ;papL293DX2.c: 66: }
-   118  03E1  2BE9               	goto	l10
-   119  03E2                     l11
-   120                           ;papL293DX2.c: 68: {
-   121  03E2  0899               	movf	_m2Ciclo
-   122  03E3  1D03               	btfss	3,2
-   123  03E4  2BE8               	goto	l15
-   124                           ;papL293DX2.c: 70: m2Ciclo=3;
-   125  03E5  3003               	movlw	3
-   126  03E6  0099               	movwf	_m2Ciclo
-   127                           ;papL293DX2.c: 71: else
-   128  03E7  2BE9               	goto	l10
-   129  03E8                     l15
-   130                           ;papL293DX2.c: 72: m2Ciclo--;
-   131  03E8  0399               	decf	_m2Ciclo
-   132                           ;papL293DX2.c: 73: }
-   133  03E9                     l10
-   134                           ;papL293DX2.c: 74: }
-   135  03E9  0823               	movf	?a_papMove,w
-   136  03EA  3910               	andlw	16
-   137  03EB  3A01               	xorlw	1
-   138  03EC  1D03               	btfss	3,2
-   139  03ED  2BF0               	goto	l17
-   140                           ;papL293DX2.c: 77: ((PORTA) |= (1 << (3)));
-   141  03EE  1585               	bsf	5,3	;volatile
-   142                           ;papL293DX2.c: 78: }
-   143  03EF  2BF1               	goto	l18
-   144  03F0                     l17
-   145                           ;papL293DX2.c: 80: ((PORTA) &= ~(1 << (3)));
-   146  03F0  1185               	bcf	5,3	;volatile
-   147  03F1                     l18
-   148                           ;papL293DX2.c: 81: }
-   149                           ;papL293DX2.c: 83: PORTB = sM[m1Ciclo] | (sM[m2
-      +                          Ciclo]>>4);
-   150  03F1  0818               	movf	_m1Ciclo,w
-   151  03F2  3E1B               	addlw	_sM
-   152  03F3  0084               	movwf	4
-   153  03F4  0800               	movf	0,w
-   154  03F5  00A6               	movwf	btemp
-   155  03F6  0819               	movf	_m2Ciclo,w
-   156  03F7  3E1B               	addlw	_sM
-   157  03F8  0084               	movwf	4
-   158  03F9  0E00               	swapf	0,w
-   159  03FA  390F               	andlw	15
-   160  03FB  0426               	iorwf	btemp,w
-   161  03FC  0086               	movwf	6	;volatile
-   162                           ;papL293DX2.c: 84: pAnterior = pActual;
-   163  03FD  0823               	movf	?a_papMove,w
-   164  03FE  009A               	movwf	_pAnterior
-   165                           ;papL293DX2.c: 85: }
-   166  03FF  0008               	return
-   167                           
-   168                           	psect	text2
-   169                           ;papL293DX2.c: 87: void papStop(void){
-   170  029B                     _papStop
-   171                           ;papL293DX2.c: 88: PORTB = sM[4];
-   172  029B  1283               	bcf	3,5
-   173  029C  081F               	movf	_sM+4,w
-   174  029D  0086               	movwf	6	;volatile
-   175                           ;papL293DX2.c: 90: pAnterior=0b00000000;
-   176  029E  019A               	clrf	_pAnterior
-   177                           ;papL293DX2.c: 91: m1Ciclo=0;
-   178  029F  0198               	clrf	_m1Ciclo
-   179                           ;papL293DX2.c: 92: m2Ciclo=0;
-   180  02A0  0199               	clrf	_m2Ciclo
-   181                           ;papL293DX2.c: 93: }
-   182  02A1  0008               	return
-   183                           
-   184                           	psect	text3
-   185                           ;papL293DX2.c: 95: void papMoveManual(unsigned 
+    75  03C9  19A3               	btfsc	?a_papMove,3
+    76  03CA  199A               	btfsc	_pAnterior,3
+    77  03CB  2BDD               	goto	l5
+    78                           ;papL293DX2.c: 48: {
+    79  03CC  1D23               	btfss	?a_papMove,2
+    80  03CD  2BD6               	goto	l6
+    81                           ;papL293DX2.c: 50: {
+    82  03CE  0818               	movf	_m1Ciclo,w
+    83  03CF  3A03               	xorlw	3
+    84  03D0  1D03               	btfss	3,2
+    85  03D1  2BD4               	goto	l7
+    86                           ;papL293DX2.c: 52: m1Ciclo=0;
+    87  03D2  0198               	clrf	_m1Ciclo
+    88                           ;papL293DX2.c: 53: else
+    89  03D3  2BDD               	goto	l5
+    90  03D4                     l7
+    91                           ;papL293DX2.c: 54: m1Ciclo++;
+    92  03D4  0A98               	incf	_m1Ciclo
+    93                           ;papL293DX2.c: 55: }
+    94  03D5  2BDD               	goto	l5
+    95  03D6                     l6
+    96                           ;papL293DX2.c: 57: {
+    97  03D6  0898               	movf	_m1Ciclo
+    98  03D7  1D03               	btfss	3,2
+    99  03D8  2BDC               	goto	l10
+   100                           ;papL293DX2.c: 59: m1Ciclo=3;
+   101  03D9  3003               	movlw	3
+   102  03DA  0098               	movwf	_m1Ciclo
+   103                           ;papL293DX2.c: 60: else
+   104  03DB  2BDD               	goto	l5
+   105  03DC                     l10
+   106                           ;papL293DX2.c: 61: m1Ciclo--;
+   107  03DC  0398               	decf	_m1Ciclo
+   108                           ;papL293DX2.c: 62: }
+   109  03DD                     l5
+   110                           ;papL293DX2.c: 63: }
+   111  03DD  18A3               	btfsc	?a_papMove,1
+   112  03DE  189A               	btfsc	_pAnterior,1
+   113  03DF  2BF1               	goto	l12
+   114                           ;papL293DX2.c: 68: {
+   115  03E0  1C23               	btfss	?a_papMove,0
+   116  03E1  2BEA               	goto	l13
+   117                           ;papL293DX2.c: 70: {
+   118  03E2  0819               	movf	_m2Ciclo,w
+   119  03E3  3A03               	xorlw	3
+   120  03E4  1D03               	btfss	3,2
+   121  03E5  2BE8               	goto	l14
+   122                           ;papL293DX2.c: 72: m2Ciclo=0;
+   123  03E6  0199               	clrf	_m2Ciclo
+   124                           ;papL293DX2.c: 73: else
+   125  03E7  2BF1               	goto	l12
+   126  03E8                     l14
+   127                           ;papL293DX2.c: 74: m2Ciclo++;
+   128  03E8  0A99               	incf	_m2Ciclo
+   129                           ;papL293DX2.c: 75: }
+   130  03E9  2BF1               	goto	l12
+   131  03EA                     l13
+   132                           ;papL293DX2.c: 77: {
+   133  03EA  0899               	movf	_m2Ciclo
+   134  03EB  1D03               	btfss	3,2
+   135  03EC  2BF0               	goto	l17
+   136                           ;papL293DX2.c: 79: m2Ciclo=3;
+   137  03ED  3003               	movlw	3
+   138  03EE  0099               	movwf	_m2Ciclo
+   139                           ;papL293DX2.c: 80: else
+   140  03EF  2BF1               	goto	l12
+   141  03F0                     l17
+   142                           ;papL293DX2.c: 81: m2Ciclo--;
+   143  03F0  0399               	decf	_m2Ciclo
+   144                           ;papL293DX2.c: 82: }
+   145  03F1                     l12
+   146                           ;papL293DX2.c: 83: }
+   147  03F1  0818               	movf	_m1Ciclo,w
+   148  03F2  3E1B               	addlw	_sM
+   149  03F3  0084               	movwf	4
+   150  03F4  0800               	movf	0,w
+   151  03F5  00A6               	movwf	btemp
+   152  03F6  0819               	movf	_m2Ciclo,w
+   153  03F7  3E1B               	addlw	_sM
+   154  03F8  0084               	movwf	4
+   155  03F9  0E00               	swapf	0,w
+   156  03FA  390F               	andlw	15
+   157  03FB  0426               	iorwf	btemp,w
+   158  03FC  0086               	movwf	6	;volatile
+   159                           ;papL293DX2.c: 88: pAnterior = pActual;
+   160  03FD  0823               	movf	?a_papMove,w
+   161  03FE  009A               	movwf	_pAnterior
+   162                           ;papL293DX2.c: 89: }
+   163  03FF  0008               	return
+   164                           
+   165                           	psect	text2
+   166                           ;papL293DX2.c: 91: void papStop(void){
+   167  029E                     _papStop
+   168                           ;papL293DX2.c: 92: PORTB = sM[4];
+   169  029E  1283               	bcf	3,5
+   170  029F  081F               	movf	_sM+4,w
+   171  02A0  0086               	movwf	6	;volatile
+   172                           ;papL293DX2.c: 94: pAnterior=0b00000000;
+   173  02A1  019A               	clrf	_pAnterior
+   174                           ;papL293DX2.c: 95: m1Ciclo=0;
+   175  02A2  0198               	clrf	_m1Ciclo
+   176                           ;papL293DX2.c: 96: m2Ciclo=0;
+   177  02A3  0199               	clrf	_m2Ciclo
+   178                           ;papL293DX2.c: 97: }
+   179  02A4  0008               	return
+   180                           
+   181                           	psect	text3
+   182                           ;papL293DX2.c: 99: void papMoveManual(unsigned 
       +                          char a){
-   186  0283                     _papMoveManual
-   187                           ;	_a assigned to ?a_papMoveManual+0
-   188  0000                     _papMoveManual$a	set	?a_papMoveManual
-   189                           ;_a stored from w
-   190  0283  1283               	bcf	3,5
-   191  0284  00A3               	movwf	?a_papMoveManual
-   192                           ;papL293DX2.c: 96: papMove(a);
-   193  0285  1283               	bcf	3,5
-   194  0286  23BF               	call	_papMove
-   195                           ;papL293DX2.c: 97: papMove(0b00000000);
-   196  0287  3000               	movlw	0
-   197  0288  2BBF               	goto	_papMove
-   198                           
-   199                           	psect	text4
+   183  0286                     _papMoveManual
+   184                           ;	_a assigned to ?a_papMoveManual+0
+   185  0000                     _papMoveManual$a	set	?a_papMoveManual
+   186                           ;_a stored from w
+   187  0286  1283               	bcf	3,5
+   188  0287  00A3               	movwf	?a_papMoveManual
+   189                           ;papL293DX2.c: 100: papMove(a);
+   190  0288  1283               	bcf	3,5
+   191  0289  23C2               	call	_papMove
+   192                           ;papL293DX2.c: 101: papMove(0b00000000);
+   193  028A  3000               	movlw	0
+   194  028B  2BC2               	goto	_papMove
+   195                           
+   196                           	psect	text4
+   197  0000                     
+   198  0000                     
+   199  0000                     
    200  0000                     
    201  0000                     
    202  0000                     
@@ -301,34 +301,31 @@ Licensed to: MITSOS FOREVER
    290  0000                     
    291  0000                     
    292  0000                     
-   293  0000                     
-   294  0000                     
-   295  0000                     
-   296                           
-   297                           	psect	rbss_0
-   298  0018                     _m1Ciclo
-   299  0018                     	ds	1
-   300  0019                     _m2Ciclo
-   301  0019                     	ds	1
-   302  001A                     _pAnterior
-   303  001A                     	ds	1
-   304  001B                     _sM
-   305  001B                     	ds	5
-   306                           
-   307                           	psect	temp
-   308  0026                     btemp
-   309  0026                     	ds	1
+   293                           
+   294                           	psect	rbss_0
+   295  0018                     _m1Ciclo
+   296  0018                     	ds	1
+   297  0019                     _m2Ciclo
+   298  0019                     	ds	1
+   299  001A                     _pAnterior
+   300  001A                     	ds	1
+   301  001B                     _sM
+   302  001B                     	ds	5
+   303                           
+   304                           	psect	temp
+   305  0026                     btemp
+   306  0026                     	ds	1
 
 
 HI-TECH Software PICC Macro Assembler V8.05PL2
-Symbol Table                                          Wed Dec  6 21:21:15 2017
+Symbol Table                                          Thu Dec  7 02:02:21 2017
 
-              l3 03D5                l4 03CE                l5 03CC  
-              l8 03D4               l10 03E9               l11 03E2  
-             l12 03E0               l15 03E8               l17 03F0  
-             l18 03F1               _sM 001B               fsr 0004  
+              l3 03C8                l4 03C9                l5 03DD  
+              l6 03D6                l7 03D4               l10 03DC  
+             l12 03F1               l13 03EA               l14 03E8  
+             l17 03F0               _sM 001B               fsr 0004  
       ?a_papMove 0023             btemp 0026          _m1Ciclo 0018  
-        _m2Ciclo 0019       _papX2Begin 02EA    _papMoveManual 0283  
-?a_papMoveManual 0023          _papMove 03BF          _papStop 029B  
+        _m2Ciclo 0019       _papX2Begin 02ED    _papMoveManual 0286  
+?a_papMoveManual 0023          _papMove 03C2          _papStop 029E  
           status 0003       clear_bank0 0017        _pAnterior 001A  
      used_btemp0 0001  

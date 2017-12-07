@@ -139,7 +139,7 @@
 [v _WR `VXb  1 s 0 @1089 ]
 "98
 [v _RD `VXb  1 s 0 @1088 ]
-"32 E:\plotter-master\X_serial\funciones.h
+"32 D:\plotter\X_serial\funciones.h
 [v _S1 `b  1 s 0 @1072 ]
 "33
 [v _S2 `b  1 s 0 @1073 ]
@@ -191,7 +191,7 @@
 [v _D12 `b  1 s 0 @43 ]
 "60
 [v _D13 `b  1 s 0 @44 ]
-"18 E:\plotter-master\X_serial\hc595.c
+"18 D:\plotter\X_serial\hc595.c
 [v _fpa `uc  1 e 1 0 ]
 "20
 [v _hc595Begin `(v  1 e 0 0 ]

@@ -23,6 +23,7 @@ void setup(void)
 	serial_begin();
 	putch('*');
 	papX2Begin();
+	//RA3 = 1;
 	
 }
 
@@ -31,6 +32,12 @@ void loop(void)
 {
 	input = getch();
 	putch(input);
+
+//	if(!!bit_test(input, 4)==1){
+//		RA3 = 1;
+//	}else{
+//		RA3 = 0;
+//	}
 	papMove(input);
 
 }

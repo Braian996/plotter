@@ -139,7 +139,7 @@
 [v _WR `VXb  1 s 0 @1089 ]
 "98
 [v _RD `VXb  1 s 0 @1088 ]
-"32 E:\plotter-master\X_serial\funciones.h
+"32 D:\plotter\X_serial\funciones.h
 [v _S1 `b  1 s 0 @1072 ]
 "33
 [v _S2 `b  1 s 0 @1073 ]
@@ -191,7 +191,7 @@
 [v _D12 `b  1 s 0 @43 ]
 "60
 [v _D13 `b  1 s 0 @44 ]
-"10 E:\plotter-master\X_serial\papL293DX2.c
+"10 D:\plotter\X_serial\papL293DX2.c
 [v _sM `uc  5a e 5 0 ]
 "11
 [v _pAnterior `uc  1 e 1 0 ]
@@ -209,21 +209,21 @@
 {
 [v _pActual `uc  1 a 1 w ]
 [v _pActual `uc  1 a 1 0 ]
-"38
+"37
 [v _pActual `uc  1 a 1 0 ]
-"85
+"89
 } 1
-"87
+"91
 [v _papStop `(v  1 e 0 0 ]
 {
-"93
+"97
 } 0
-"95
+"99
 [v _papMoveManual `(v  1 e 0 0 ]
 {
 [v _a `uc  1 a 1 w ]
 [v _a `uc  1 a 1 0 ]
-"96
+"100
 [v _a `uc  1 a 1 0 ]
-"98
+"102
 } 1

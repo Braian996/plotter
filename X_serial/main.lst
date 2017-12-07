@@ -1,7 +1,7 @@
 
 
 HI-TECH Software PICC Macro Assembler V8.05PL2
-Serial number: HCPIC-00000                            Wed Dec  6 21:21:10 2017
+Serial number: HCPIC-00000                            Thu Dec  7 02:02:17 2017
 
 Licensed to: MITSOS FOREVER
      1                           	processor	16F84A
@@ -30,51 +30,51 @@ Licensed to: MITSOS FOREVER
     23  0028                     	;#
     24                           
     25                           	psect	text0
-    26  027E                     _setup
+    26  0281                     _setup
     27                           ;main.c: 23: serial_begin();
-    28  027E  1283               	bcf	3,5
-    29  027F  2276               	call	_serial_begin
+    28  0281  1283               	bcf	3,5
+    29  0282  2279               	call	_serial_begin
     30                           ;main.c: 24: putch('*');
-    31  0280  302A               	movlw	42
-    32  0281  230A               	call	_putch
+    31  0283  302A               	movlw	42
+    32  0284  230D               	call	_putch
     33                           ;main.c: 25: papX2Begin();
-    34  0282  2AEA               	goto	_papX2Begin
+    34  0285  2AED               	goto	_papX2Begin
     35                           
     36                           	psect	config
     37  2007  3FF1               	dw	16369	;#
     38                           
     39                           	psect	text1
-    40  028F                     _loop
-    41                           ;main.c: 32: input = getch();
-    42  028F  1283               	bcf	3,5
-    43  0290  234E               	call	_getch
-    44  0291  008D               	movwf	_input
-    45                           ;main.c: 33: putch(input);
-    46  0292  230A               	call	_putch
-    47                           ;main.c: 34: papMove(input);
-    48  0293  080D               	movf	_input,w
-    49  0294  2BBF               	goto	_papMove
+    40  0292                     _loop
+    41                           ;main.c: 33: input = getch();
+    42  0292  1283               	bcf	3,5
+    43  0293  2351               	call	_getch
+    44  0294  008D               	movwf	_input
+    45                           ;main.c: 34: putch(input);
+    46  0295  230D               	call	_putch
+    47                           ;main.c: 41: papMove(input);
+    48  0296  080D               	movf	_input,w
+    49  0297  2BC2               	goto	_papMove
     50                           
     51                           	psect	text2
-    52  02B2                     _main
-    53                           ;main.c: 43: TRISA = 0b00000000;
-    54  02B2  1683               	bsf	3,5
-    55  02B3  0185               	clrf	5	;volatile
-    56                           ;main.c: 44: TRISB = 0b00000000;
-    57  02B4  0186               	clrf	6	;volatile
-    58                           ;main.c: 46: setup();
-    59  02B5  1283               	bcf	3,5
-    60  02B6  227E               	call	_setup
-    61                           ;main.c: 48: PORTA = 0b00000000;
-    62  02B7  0185               	clrf	5	;volatile
-    63                           ;main.c: 49: PORTB = 0b00000000;
-    64  02B8  0186               	clrf	6	;volatile
-    65  02B9                     l6
-    66                           ;main.c: 53: while(1){
-    67                           ;main.c: 54: loop();
-    68  02B9  228F               	call	_loop
-    69                           ;main.c: 55: }
-    70  02BA  2AB9               	goto	l6
+    52  02B5                     _main
+    53                           ;main.c: 50: TRISA = 0b00000000;
+    54  02B5  1683               	bsf	3,5
+    55  02B6  0185               	clrf	5	;volatile
+    56                           ;main.c: 51: TRISB = 0b00000000;
+    57  02B7  0186               	clrf	6	;volatile
+    58                           ;main.c: 53: setup();
+    59  02B8  1283               	bcf	3,5
+    60  02B9  2281               	call	_setup
+    61                           ;main.c: 55: PORTA = 0b00000000;
+    62  02BA  0185               	clrf	5	;volatile
+    63                           ;main.c: 56: PORTB = 0b00000000;
+    64  02BB  0186               	clrf	6	;volatile
+    65  02BC                     l6
+    66                           ;main.c: 60: while(1){
+    67                           ;main.c: 61: loop();
+    68  02BC  2292               	call	_loop
+    69                           ;main.c: 62: }
+    70  02BD  2ABC               	goto	l6
     71                           
     72                           	psect	text3
     73  0000                     
@@ -182,10 +182,10 @@ Licensed to: MITSOS FOREVER
 
 
 HI-TECH Software PICC Macro Assembler V8.05PL2
-Symbol Table                                          Wed Dec  6 21:21:10 2017
+Symbol Table                                          Thu Dec  7 02:02:17 2017
 
-           l6 02B9             _d 000E          _main 02B2  
-        _loop 028F    _papX2Begin 02EA          start 0017  
-     _papMove 03BF         _getch 034E         _input 000D  
-       _setup 027E         _putch 030A         status 0003  
-  clear_bank0 0017  _serial_begin 0276  
+           l6 02BC             _d 000E          _main 02B5  
+        _loop 0292    _papX2Begin 02ED          start 0017  
+     _papMove 03C2         _getch 0351         _input 000D  
+       _setup 0281         _putch 030D         status 0003  
+  clear_bank0 0017  _serial_begin 0279  

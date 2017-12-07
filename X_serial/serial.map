@@ -11,12 +11,11 @@ Linker command line:
   -pfloat_text0=CODE,float_text1=CODE,float_text2=CODE \
   -pfloat_text3=CODE,float_text4=CODE -pnvram=BANK0,nvram_1=BANK1 \
   -pnvbit_0=BANK0,nvbit_1=BANK1 -Q16F84A -h+serial.sym -E \
-  -EC:\Users\Alumno\AppData\Local\Temp\_4E8.AAA -ver=PICC#V8.05PL2 \
-  d:\HT-PIC\LIB\picrt40a.obj E:\plotter-master\X_serial\main.obj \
-  E:\plotter-master\X_serial\serial.obj \
-  E:\plotter-master\X_serial\delay.obj E:\plotter-master\X_serial\pap.obj \
-  E:\plotter-master\X_serial\papL293DX2.obj \
-  E:\plotter-master\X_serial\hc595.obj E:\plotter-master\X_serial\srf04.obj \
+  -EC:\Users\Alumno\AppData\Local\Temp\_798.AAA -ver=PICC#V8.05PL2 \
+  d:\HT-PIC\LIB\picrt40a.obj D:\plotter\X_serial\main.obj \
+  D:\plotter\X_serial\serial.obj D:\plotter\X_serial\delay.obj \
+  D:\plotter\X_serial\pap.obj D:\plotter\X_serial\papL293DX2.obj \
+  D:\plotter\X_serial\hc595.obj D:\plotter\X_serial\srf04.obj \
   d:\HT-PIC\LIB\pic4---u.lib d:\HT-PIC\LIB\pic40a-c.lib \
   d:\HT-PIC\LIB\pic4---u.lib 
 
@@ -40,52 +39,52 @@ Call graph:
 		Name          Link     Load   Length Selector Space Scale
 d:\HT-PIC\LIB\picrt40a.obj
 		end_init        1B       1B        2       8     0
-E:\plotter-master\X_serial\main.obj
+D:\plotter\X_serial\main.obj
 		config        2007     2007        1    400E     0
 		rbss_0           D        D        3       C     1
-		text2          2B2      2B2        9     564     0
-		text1          28F      28F        6     51E     0
-		text0          27E      27E        5     4FC     0
-E:\plotter-master\X_serial\serial.obj
+		text2          2B5      2B5        9     56A     0
+		text1          292      292        6     524     0
+		text0          281      281        5     502     0
+D:\plotter\X_serial\serial.obj
 		rbss_0          10       10        1       C     1
-		text3          295      295        6     52A     0
-		text2          34E      34E       18     69C     0
-		text1          30A      30A       14     614     0
-		text0          276      276        4     4EC     0
-E:\plotter-master\X_serial\delay.obj
-		text0          2D0      2D0        D     5A0     0
-E:\plotter-master\X_serial\pap.obj
+		text3          298      298        6     530     0
+		text2          351      351       18     6A2     0
+		text1          30D      30D       14     61A     0
+		text0          279      279        4     4F2     0
+D:\plotter\X_serial\delay.obj
+		text0          2D3      2D3        D     5A6     0
+D:\plotter\X_serial\pap.obj
 		rbss_0          11       11        7       C     1
-		text5          273      273        3     4E6     0
-		text4          336      336       18     66C     0
-		text6          27A      27A        4     4F4     0
-		text3          31E      31E       18     63C     0
-		text0          2FA      2FA       10     5F4     0
-		text2          2C5      2C5        B     58A     0
-		text1          2A9      2A9        9     552     0
-E:\plotter-master\X_serial\papL293DX2.obj
+		text5          276      276        3     4EC     0
+		text4          339      339       18     672     0
+		text6          27D      27D        4     4FA     0
+		text3          321      321       18     642     0
+		text0          2FD      2FD       10     5FA     0
+		text2          2C8      2C8        B     590     0
+		text1          2AC      2AC        9     558     0
+D:\plotter\X_serial\papL293DX2.obj
 		rbss_0          18       18        8       C     1
 		temp            26       26        1      26     1
-		text3          283      283        6     506     0
-		text2          29B      29B        7     536     0
-		text1          3BF      3BF       41     77E     0
-		text0          2EA      2EA       10     5D4     0
-E:\plotter-master\X_serial\hc595.obj
+		text3          286      286        6     50C     0
+		text2          29E      29E        7     53C     0
+		text1          3C2      3C2       3E     784     0
+		text0          2ED      2ED       10     5DA     0
+D:\plotter\X_serial\hc595.obj
 		rbss_0          20       20        1       C     1
 		temp            26       26        2      26     1
-		text3          2A2      2A2        7     544     0
-		text2          366      366       28     6CC     0
-		text1          2BB      2BB        A     576     0
-		text0          289      289        6     512     0
-E:\plotter-master\X_serial\srf04.obj
+		text3          2A5      2A5        7     54A     0
+		text2          369      369       28     6D2     0
+		text1          2BE      2BE        A     57C     0
+		text0          28C      28C        6     518     0
+D:\plotter\X_serial\srf04.obj
 		intcode          8        8        A       8     0
 		intentry         4        4        4       8     0
 		intret          12       12        5       8     0
 		intsave_0        C        C        1       C     1
 		rbss_0          21       21        2       C     1
 		temp            26       26        2      26     1
-		text2          38E      38E       31     71C     0
-		text1          2DD      2DD        D     5BA     0
+		text2          391      391       31     722     0
+		text1          2E0      2E0        D     5C0     0
 		intsave         28       28        1      28     1
 
 d:\HT-PIC\LIB\pic4---u.lib
@@ -118,31 +117,31 @@ TOTAL		Name          Link     Load   Length
 		clrtext         1D       1D        7
 		end_init        1B       1B        2
 		init            17       17        4
-		text2          2B2      2B2        9
-		text1          28F      28F        6
-		text0          27E      27E        5
-		text3          295      295        6
-		text2          34E      34E       18
-		text1          30A      30A       14
-		text0          276      276        4
-		text0          2D0      2D0        D
-		text5          273      273        3
-		text4          336      336       18
-		text6          27A      27A        4
-		text3          31E      31E       18
-		text0          2FA      2FA       10
-		text2          2C5      2C5        B
-		text1          2A9      2A9        9
-		text3          283      283        6
-		text2          29B      29B        7
-		text1          3BF      3BF       41
-		text0          2EA      2EA       10
-		text3          2A2      2A2        7
-		text2          366      366       28
-		text1          2BB      2BB        A
-		text0          289      289        6
-		text2          38E      38E       31
-		text1          2DD      2DD        D
+		text2          2B5      2B5        9
+		text1          292      292        6
+		text0          281      281        5
+		text3          298      298        6
+		text2          351      351       18
+		text1          30D      30D       14
+		text0          279      279        4
+		text0          2D3      2D3        D
+		text5          276      276        3
+		text4          339      339       18
+		text6          27D      27D        4
+		text3          321      321       18
+		text0          2FD      2FD       10
+		text2          2C8      2C8        B
+		text1          2AC      2AC        9
+		text3          286      286        6
+		text2          29E      29E        7
+		text1          3C2      3C2       3E
+		text0          2ED      2ED       10
+		text3          2A5      2A5        7
+		text2          369      369       28
+		text1          2BE      2BE        A
+		text0          28C      28C        6
+		text2          391      391       31
+		text1          2E0      2E0        D
 
 	CLASS	CONST    
 
@@ -172,40 +171,40 @@ SEGMENTS	Name		Load	Length	 Top	Selector    Space Class
 		intsave_0       00000C	00001A	000026	       C       1  BANK0   
 		temp            000026	000002	000028	      26       1  COMBANK 
 		nvram           000028	000001	000029	      28       1  BANK0   
-		text5           000273	000003	000276	     4E6       0  CODE    
-		text0           000276	000004	00027A	     4EC       0  CODE    
-		text6           00027A	000004	00027E	     4F4       0  CODE    
-		text0           00027E	000005	000283	     4FC       0  CODE    
-		text3           000283	000006	000289	     506       0  CODE    
-		text0           000289	000006	00028F	     512       0  CODE    
-		text1           00028F	000006	000295	     51E       0  CODE    
-		text3           000295	000006	00029B	     52A       0  CODE    
-		text2           00029B	000007	0002A2	     536       0  CODE    
-		text3           0002A2	000007	0002A9	     544       0  CODE    
-		text1           0002A9	000009	0002B2	     552       0  CODE    
-		text2           0002B2	000009	0002BB	     564       0  CODE    
-		text1           0002BB	00000A	0002C5	     576       0  CODE    
-		text2           0002C5	00000B	0002D0	     58A       0  CODE    
-		text0           0002D0	00000D	0002DD	     5A0       0  CODE    
-		text1           0002DD	00000D	0002EA	     5BA       0  CODE    
-		text0           0002EA	000010	0002FA	     5D4       0  CODE    
-		text0           0002FA	000010	00030A	     5F4       0  CODE    
-		text1           00030A	000014	00031E	     614       0  CODE    
-		text3           00031E	000018	000336	     63C       0  CODE    
-		text4           000336	000018	00034E	     66C       0  CODE    
-		text2           00034E	000018	000366	     69C       0  CODE    
-		text2           000366	000028	00038E	     6CC       0  CODE    
-		text2           00038E	000031	0003BF	     71C       0  CODE    
-		text1           0003BF	000041	000400	     77E       0  CODE    
+		text5           000276	000003	000279	     4EC       0  CODE    
+		text0           000279	000004	00027D	     4F2       0  CODE    
+		text6           00027D	000004	000281	     4FA       0  CODE    
+		text0           000281	000005	000286	     502       0  CODE    
+		text3           000286	000006	00028C	     50C       0  CODE    
+		text0           00028C	000006	000292	     518       0  CODE    
+		text1           000292	000006	000298	     524       0  CODE    
+		text3           000298	000006	00029E	     530       0  CODE    
+		text2           00029E	000007	0002A5	     53C       0  CODE    
+		text3           0002A5	000007	0002AC	     54A       0  CODE    
+		text1           0002AC	000009	0002B5	     558       0  CODE    
+		text2           0002B5	000009	0002BE	     56A       0  CODE    
+		text1           0002BE	00000A	0002C8	     57C       0  CODE    
+		text2           0002C8	00000B	0002D3	     590       0  CODE    
+		text0           0002D3	00000D	0002E0	     5A6       0  CODE    
+		text1           0002E0	00000D	0002ED	     5C0       0  CODE    
+		text0           0002ED	000010	0002FD	     5DA       0  CODE    
+		text0           0002FD	000010	00030D	     5FA       0  CODE    
+		text1           00030D	000014	000321	     61A       0  CODE    
+		text3           000321	000018	000339	     642       0  CODE    
+		text4           000339	000018	000351	     672       0  CODE    
+		text2           000351	000018	000369	     6A2       0  CODE    
+		text2           000369	000028	000391	     6D2       0  CODE    
+		text2           000391	000031	0003C2	     722       0  CODE    
+		text1           0003C2	00003E	000400	     784       0  CODE    
 		config          002007	000001	002008	    400E       0  CONFIG  
 
 
 UNUSED ADDRESS RANGES
 
 	BANK0            0029-004F
-	CODE             0024-0272
+	CODE             0024-0275
 	COMBANK          0029-004F
-	CONST            0024-0272
+	CONST            0024-0275
 	EEDATA           2100-21FF
 
                                   Symbol Table
@@ -275,25 +274,25 @@ __Lstrings          strings     0024  __Lstringtable      stringtable 0024
 __Lstruct           struct      0029  __Ltemp             temp        0026
 __Ltext             text        0028  __Lvectors          vectors     0024
 __S0                (abs)       2100  __S1                (abs)       0029
-_buff_pap           text1       02A9  _ca                 rbss_0      0010
+_buff_pap           text1       02AC  _ca                 rbss_0      0010
 _d                  rbss_0      000E  _dSrf04             rbss_0      0021
-_delay              text0       02D0  _exit               init        0017
-_fpa                rbss_0      0020  _getch              text2       034E
-_getche             text3       0295  _hc595Begin         text0       0289
-_hc595Data          text2       0366  _hc595End           text3       02A2
-_hc595Init          text1       02BB  _input              rbss_0      000D
+_delay              text0       02D3  _exit               init        0017
+_fpa                rbss_0      0020  _getch              text2       0351
+_getche             text3       0298  _hc595Begin         text0       028C
+_hc595Data          text2       0369  _hc595End           text3       02A5
+_hc595Init          text1       02BE  _input              rbss_0      000D
 _isr                intcode     0008  _ld                 rbss_0      0012
-_loop               text1       028F  _m1Ciclo            rbss_0      0018
-_m2Ciclo            rbss_0      0019  _main               text2       02B2
-_pAnterior          rbss_0      001A  _papMove            text1       03BF
-_papMoveManual      text3       0283  _papStop            text2       029B
-_papX2Begin         text0       02EA  _pap_begin          text0       02FA
-_pap_led_test       text6       027A  _pap_left           text3       031E
-_pap_paso           text5       0273  _pap_right          text4       0336
-_pap_stop           text2       02C5  _putch              text1       030A
+_loop               text1       0292  _m1Ciclo            rbss_0      0018
+_m2Ciclo            rbss_0      0019  _main               text2       02B5
+_pAnterior          rbss_0      001A  _papMove            text1       03C2
+_papMoveManual      text3       0286  _papStop            text2       029E
+_papX2Begin         text0       02ED  _pap_begin          text0       02FD
+_pap_led_test       text6       027D  _pap_left           text3       0321
+_pap_paso           text5       0276  _pap_right          text4       0339
+_pap_stop           text2       02C8  _putch              text1       030D
 _sM                 rbss_0      001B  _secuencia          rbss_0      0013
-_serial_begin       text0       0276  _setup              text0       027E
-_srf04Begin         text1       02DD  _srf04GetDistance   text2       038E
+_serial_begin       text0       0279  _setup              text0       0281
+_srf04Begin         text1       02E0  _srf04GetDistance   text2       0391
 clear_bank0         init        0017  clear_ram           clrtext     0020
 int_entry           intentry    0004  int_func            intcode     0008
 int_restore         intret      0012  intlevel0           intentry    0004
