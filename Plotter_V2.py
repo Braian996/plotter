@@ -232,6 +232,10 @@ class Main(wx.Frame):
 		pasosx = 0
 		pasosy = 0
 
+		#Tiempo de respuesta
+		tiempo01 = 0.002
+		tiempo02 = 0.02
+		tiempo03 = 0.05
 
 		#Funcion que suma si hay coma en el array del numero
 		def convertir_num_decimal_string(numero):
@@ -266,7 +270,7 @@ class Main(wx.Frame):
 				if palabras[1][0] == 'Z' and palabras[1][1] == '-':
 					cuchilla = 1
 				else:
-					cuchilla_1 = 2
+					cuchilla = 0
 				#COMPRUEBA X y Y
 				if palabras[1][0] == 'X' and palabras[2][0] == 'Y':
 					movX0 = palabras[1].replace("X", "")
@@ -276,6 +280,11 @@ class Main(wx.Frame):
 					motorActualY = float(movY0)
 
 			elif palabras[0] == 'G01': #COMPRUEBA MOVIMIENTO
+				if palabras[1][0] == 'Z' and palabras[1][1] == '-':
+					cuchilla = 1
+				else:
+					cuchilla = 0
+
 				#Comprueba si hay X y Y
 				if palabras[1][0] == 'X' and palabras[2][0] == 'Y':
 					#Asigna el valor de X e Y en variables para sacar pasos y distancia
@@ -330,42 +339,68 @@ class Main(wx.Frame):
 						#X SUPERA A Y
 						if pasosx > pasosy and pasosy > 1:
 							print "MOTOR Y SUPERA A MOTOR X"
-							while contX < (pasosx + 1):
-								intYaux = convertir_num_decimal_string(str(pasosy/pasosx)) #Calcula la interseccion de ambos motores
-								intY = int(intYaux)
-								pm1 = 1
-								if contX == intY: # Si concuerda la interseccion asigna movimiento en motor Y
-									pm2 = 1
-									contX = 0 #Se resetea el contador de X
-								else:
+							cub_interc = convertir_num_decimal_string(str(pasosx / pasosy))
+							#Se usa la funcion para corregir error de perdida de pasos
+							cub_int = int(cub_interc) #Se convierte el valor a entero
+							xp = pasosx
+							cub_cont = 0
+							while(xp>0):
+								xp = xp - 1
+								if (cub_cont < cub_int):
+									cub_cont = cub_cont + 1
+									print "MOVIMIENTO SOLO EN X"
+									pm1 = 1
 									pm2 = 0
-								ser.write(chr(int('00000000',2))) #Manda cero primero
-								time.sleep(.008)
-								a1 = '0000'+str(pm1)+str(DirMX)+str(pm2)+str(DirMY)
-								b1 = int(str(a1), 2)
-								ser.write(chr(b1)) #Manda movimiento
-								time.sleep(.008)
-								contX = contX + 1
+									ser.write(chr(int('00000000',2))) #Manda cero primero
+									time.sleep(tiempo01)
+									a = '000'+str(cuchilla)+str(pm1)+str(DirMX)+str(pm2)+str(DirMY)
+									d = int(str(a), 2)
+									ser.write(chr(d)) #Manda movimiento
+									time.sleep(tiempo01)
+								else:
+									cub_cont = 0
+									print "AMBOS MOTORES A LA PAR"
+									pm1 = 1
+									pm2 = 1
+									ser.write(chr(int('00000000',2))) #Manda cero primero
+									time.sleep(tiempo03)
+									a1 = '000'+str(cuchilla)+str(pm1)+str(DirMX)+str(pm2)+str(DirMY)
+									b1 = int(str(a1), 2)
+									ser.write(chr(b1)) #Manda movimiento
+									time.sleep(tiempo03)
 						else:
 							#Y SUPERA A X
 							if pasosy > pasosx and pasosx > 1:
 								print "MOTOR Y SUPERA A MOTOR X"
-								while contY < (pasosy +1):
-									intXaux = convertir_num_decimal_string(str(pasosx/pasosy)) #Calcula la interseccion de ambos MOTORES
-									intX = int(intXaux)
-									pm2 = 1
-									if contY == intX: #Si concuerda la interseccion asigna movimiento en motor X
-										pm1 = 1
-										contY = 0
-									else:
+								cub_interc = convertir_num_decimal_string(str(pasosy / pasosx))
+								#Se usa la funcion para corregir error de perdida de pasos
+								cub_int = int(cub_interc) #Se convierte el valor a entero
+								yp = pasosy
+								cub_cont = 0
+								while(yp>0):
+									yp = yp - 1
+									if (cub_cont < cub_int):
+										cub_cont = cub_cont + 1
+										print "MOVIMIENTO SOLO EN Y"
 										pm1 = 0
-									ser.write(chr(int('00000000',2))) #Manda cero primero
-									time.sleep(.008)
-									a1 = '0000'+str(pm1)+str(DirMX)+str(pm2)+str(DirMY)
-									b1 = int(str(a1), 2)
-									ser.write(chr(b1)) #Manda movimiento
-									time.sleep(.008)
-									contY = contY + 1
+										pm2 = 1
+										ser.write(chr(int('00000000',2))) #Manda cero primero
+										time.sleep(tiempo02)
+										a = '000'+str(cuchilla)+str(pm1)+str(DirMX)+str(pm2)+str(DirMY)
+										d = int(str(a), 2)
+										ser.write(chr(d)) #Manda movimiento
+										time.sleep(tiempo02)
+									else:
+										cub_cont = 0
+										print "AMBOS MOTORES A LA PAR"
+										pm1 = 1
+										pm2 = 1
+										ser.write(chr(int('00000000',2))) #Manda cero primero
+										time.sleep(tiempo03)
+										a1 = '000'+str(cuchilla)+str(pm1)+str(DirMX)+str(pm2)+str(DirMY)
+										b1 = int(str(a1), 2)
+										ser.write(chr(b1)) #Manda movimiento
+										time.sleep(tiempo03)
 							else:
 								#MOVIMIENTO DE AMBOS MOTORES A LA PAR
 								if pasosx == pasosy and (pasosx > 1 and pasosy > 1):
@@ -374,11 +409,11 @@ class Main(wx.Frame):
 									pm2 = 1
 									for n in range (1, pasosx+1):
 										ser.write(chr(int('00000000',2))) #Manda cero primero
-										time.sleep(.05)
-										a1 = '0000'+str(pm1)+str(DirMX)+str(pm2)+str(DirMY)
+										time.sleep(tiempo03)
+										a1 = '000'+str(cuchilla)+str(pm1)+str(DirMX)+str(pm2)+str(DirMY)
 										b1 = int(str(a1), 2)
 										ser.write(chr(b1)) #Manda movimiento
-										time.sleep(.05)
+										time.sleep(tiempo03)
 								else:
 									#MOVIMIENTO SOLO DE MOTOR X
 									if pasosx > 1 and (pasosy >= 0 and pasosy <= 1):
@@ -387,11 +422,11 @@ class Main(wx.Frame):
 										pm2 = 0
 										for n in range(1,pasosx+1):
 											ser.write(chr(int('00000000',2))) #Manda cero primero
-											time.sleep(.002)
-											a = '0000'+str(pm1)+str(DirMX)+str(pm2)+str(DirMY)
+											time.sleep(tiempo01)
+											a = '000'+str(cuchilla)+str(pm1)+str(DirMX)+str(pm2)+str(DirMY)
 											d = int(str(a), 2)
 											ser.write(chr(d)) #Manda movimiento
-											time.sleep(.002)
+											time.sleep(tiempo01)
 										ser.write(chr(int('00000000',2)))
 									else:
 										#MOVIMIENTO SOLO DE MOTOR Y
@@ -401,11 +436,11 @@ class Main(wx.Frame):
 											pm2 = 1
 											for n in range(1,pasosy+1):
 												ser.write(chr(int('00000000',2))) #Manda cero primero
-												time.sleep(.02)
-												a = '0000'+str(pm1)+str(DirMX)+str(pm2)+str(DirMY)
+												time.sleep(tiempo02)
+												a = '000'+str(cuchilla)+str(pm1)+str(DirMX)+str(pm2)+str(DirMY)
 												d = int(str(a), 2)
 												ser.write(chr(d)) #Manda movimiento
-												time.sleep(.02)
+												time.sleep(tiempo02)
 											ser.write(chr(int('00000000',2)))
 
 
