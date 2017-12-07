@@ -1,7 +1,7 @@
 
 
 HI-TECH Software PICC Macro Assembler V8.05PL2
-Serial number: HCPIC-00000                            Mon Nov 13 00:14:51 2017
+Serial number: HCPIC-00000                            Wed Dec  6 21:21:10 2017
 
 Licensed to: MITSOS FOREVER
      1                           	processor	16F84A
@@ -11,11 +11,10 @@ Licensed to: MITSOS FOREVER
      5                           	psect	config,global,class=CONFIG,delta=2
      6                           	psect	text1,local,class=CODE,delta=2
      7                           	psect	text2,local,class=CODE,delta=2
-     8                           	psect	strings,global,class=STRING,delta=2
+     8                           	psect	text3,local,class=CODE,delta=2
      9                           	psect	rbss_0,global,class=BANK0,space=1,delta=
       +                          1
-    10                           	psect	temp,global,ovrld,class=BANK0,space=1,de
-      +                          lta=1
+    10  0000                     
     11  0000                     
     12  0000                     
     13  0000                     
@@ -25,78 +24,78 @@ Licensed to: MITSOS FOREVER
     17  0000                     
     18  0000                     
     19  0000                     
-    20  0000                     
-    21                           
-    22                           	psect	__Z00000RS_
-    23  003C                     
-    24  003C                     	;#
-    25                           
-    26                           	psect	text0
-    27  0066                     _setup
-    28                           ;main.c: 22: serial_begin();
-    29  0066  1283               	bcf	3,5
-    30  0067  2062               	call	_serial_begin
-    31                           ;main.c: 23: putch('*');
-    32  0068  302A               	movlw	42
-    33  0069  2109               	call	_putch
-    34                           ;main.c: 24: srf04Begin();
-    35  006A  28BE               	goto	_srf04Begin
-    36                           
-    37                           	psect	config
-    38  2007  3FF1               	dw	16369	;#
-    39                           
-    40                           	psect	text1
-    41  00F8                     _loop
-    42                           ;main.c: 30: d = srf04GetDistance();
-    43  00F8  1283               	bcf	3,5
-    44  00F9  21A2               	call	_srf04GetDistance
-    45  00FA  0835               	movf	btemp,w
-    46  00FB  008D               	movwf	_d
-    47  00FC  0836               	movf	btemp+1,w
-    48  00FD  008E               	movwf	_d+1
-    49                           ;main.c: 31: printf("[%d]\r\n",d);
-    50  00FE  3037               	movlw	low u19
-    51  00FF  00A5               	movwf	?_printf+1
-    52  0100  3000               	movlw	high u19
-    53  0101  00A6               	movwf	?_printf+2
-    54  0102  080D               	movf	_d,w
-    55  0103  00A2               	movwf	?a_loop
-    56  0104  080E               	movf	_d+1,w
-    57  0105  00A3               	movwf	?a_loop+1
-    58  0106  3022               	movlw	?a_loop
-    59  0107  00A4               	movwf	?_printf
-    60  0108  2859               	goto	_printf
-    61                           
-    62                           	psect	text2
-    63  0094                     _main
-    64                           ;main.c: 40: TRISA = 0b00000000;
-    65  0094  1683               	bsf	3,5
-    66  0095  0185               	clrf	5	;volatile
-    67                           ;main.c: 41: TRISB = 0b00000000;
-    68  0096  0186               	clrf	6	;volatile
-    69                           ;main.c: 43: setup();
-    70  0097  1283               	bcf	3,5
-    71  0098  2066               	call	_setup
-    72                           ;main.c: 45: PORTA = 0b00000000;
-    73  0099  0185               	clrf	5	;volatile
-    74                           ;main.c: 46: PORTB = 0b00000000;
-    75  009A  0186               	clrf	6	;volatile
-    76  009B                     l6
-    77                           ;main.c: 50: while(1){
-    78                           ;main.c: 51: loop();
-    79  009B  20F8               	call	_loop
-    80                           ;main.c: 52: }
-    81  009C  289B               	goto	l6
-    82                           
-    83                           	psect	strings
-    84  0037                     u19
-    85  0037  345B               	retlw	91	;'['
-    86  0038  3425               	retlw	37
-    87  0039  3464               	retlw	100	;'d'
-    88  003A  345D               	retlw	93	;']'
-    89  003B  340D               	retlw	13
-    90  003C  340A               	retlw	10
-    91  003D  3400               	retlw	0
+    20                           
+    21                           	psect	__Z00000RS_
+    22  0028                     
+    23  0028                     	;#
+    24                           
+    25                           	psect	text0
+    26  027E                     _setup
+    27                           ;main.c: 23: serial_begin();
+    28  027E  1283               	bcf	3,5
+    29  027F  2276               	call	_serial_begin
+    30                           ;main.c: 24: putch('*');
+    31  0280  302A               	movlw	42
+    32  0281  230A               	call	_putch
+    33                           ;main.c: 25: papX2Begin();
+    34  0282  2AEA               	goto	_papX2Begin
+    35                           
+    36                           	psect	config
+    37  2007  3FF1               	dw	16369	;#
+    38                           
+    39                           	psect	text1
+    40  028F                     _loop
+    41                           ;main.c: 32: input = getch();
+    42  028F  1283               	bcf	3,5
+    43  0290  234E               	call	_getch
+    44  0291  008D               	movwf	_input
+    45                           ;main.c: 33: putch(input);
+    46  0292  230A               	call	_putch
+    47                           ;main.c: 34: papMove(input);
+    48  0293  080D               	movf	_input,w
+    49  0294  2BBF               	goto	_papMove
+    50                           
+    51                           	psect	text2
+    52  02B2                     _main
+    53                           ;main.c: 43: TRISA = 0b00000000;
+    54  02B2  1683               	bsf	3,5
+    55  02B3  0185               	clrf	5	;volatile
+    56                           ;main.c: 44: TRISB = 0b00000000;
+    57  02B4  0186               	clrf	6	;volatile
+    58                           ;main.c: 46: setup();
+    59  02B5  1283               	bcf	3,5
+    60  02B6  227E               	call	_setup
+    61                           ;main.c: 48: PORTA = 0b00000000;
+    62  02B7  0185               	clrf	5	;volatile
+    63                           ;main.c: 49: PORTB = 0b00000000;
+    64  02B8  0186               	clrf	6	;volatile
+    65  02B9                     l6
+    66                           ;main.c: 53: while(1){
+    67                           ;main.c: 54: loop();
+    68  02B9  228F               	call	_loop
+    69                           ;main.c: 55: }
+    70  02BA  2AB9               	goto	l6
+    71                           
+    72                           	psect	text3
+    73  0000                     
+    74  0000                     
+    75  0000                     
+    76  0000                     
+    77  0000                     
+    78  0000                     
+    79  0000                     
+    80  0000                     
+    81  0000                     
+    82  0000                     
+    83  0000                     
+    84  0000                     
+    85  0000                     
+    86  0000                     
+    87  0000                     
+    88  0000                     
+    89  0000                     
+    90  0000                     
+    91  0000                     
     92  0000                     
     93  0000                     
     94  0000                     
@@ -174,42 +173,19 @@ Licensed to: MITSOS FOREVER
    166  0000                     
    167  0000                     
    168  0000                     
-   169  0000                     
-   170  0000                     
-   171  0000                     
-   172  0000                     
-   173  0000                     
-   174  0000                     
-   175  0000                     
-   176  0000                     
-   177  0000                     
-   178  0000                     
-   179  0000                     
-   180  0000                     
-   181  0000                     
-   182  0000                     
-   183  0000                     
-   184  0000                     
-   185  0000                     
-   186  0000                     
-   187  0000                     
-   188                           
-   189                           	psect	rbss_0
-   190  000D                     _d
-   191  000D                     	ds	2
-   192                           
-   193                           	psect	temp
-   194  0035                     btemp
-   195  0035                     	ds	1
+   169                           
+   170                           	psect	rbss_0
+   171  000D                     _input
+   172  000D                     	ds	1
+   173  000E                     _d
+   174  000E                     	ds	2
 
 
 HI-TECH Software PICC Macro Assembler V8.05PL2
-Symbol Table                                          Mon Nov 13 00:14:51 2017
+Symbol Table                                          Wed Dec  6 21:21:10 2017
 
-               l6 009B                 _d 000D            ?a_loop 0022  
-              u19 0037           ?_printf 0024              f1023 0024  
-          _printf 0059              _main 0094              _loop 00F8  
-            btemp 0035              start 0017        _srf04Begin 00BE  
-           _setup 0066             _putch 0109             status 0003  
-_srf04GetDistance 01A2        clear_bank0 0017      _serial_begin 0062  
-      used_btemp0 0001  
+           l6 02B9             _d 000E          _main 02B2  
+        _loop 028F    _papX2Begin 02EA          start 0017  
+     _papMove 03BF         _getch 034E         _input 000D  
+       _setup 027E         _putch 030A         status 0003  
+  clear_bank0 0017  _serial_begin 0276  

@@ -73,6 +73,15 @@ void papMove(unsigned char pActual)
 		}
 	}
 
+	if(bit_test(pActual, 4) == 1){
+		//bit_set(PORTA, 3);
+		RA3 = 1;
+	}
+	else{
+		//bit_clr(PORTA, 3);
+		RA3 = 0;
+	} 
+
 	PORTB = sM[m1Ciclo] | (sM[m2Ciclo]>>4); //envio al motor
 	pAnterior = pActual; //lo actual ahora es lo anterior
 }

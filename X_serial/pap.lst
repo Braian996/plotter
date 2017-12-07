@@ -1,7 +1,7 @@
 
 
 HI-TECH Software PICC Macro Assembler V8.05PL2
-Serial number: HCPIC-00000                            Mon Nov 13 00:14:53 2017
+Serial number: HCPIC-00000                            Wed Dec  6 21:21:13 2017
 
 Licensed to: MITSOS FOREVER
      1                           	processor	16F84A
@@ -29,174 +29,174 @@ Licensed to: MITSOS FOREVER
     22  0000                     
     23                           
     24                           	psect	__Z00000RS_
-    25  003C                     
-    26  003C                     
+    25  0028                     
+    26  0028                     
     27                           
     28                           	psect	text0
-    29  00D8                     _pap_begin
+    29  02FA                     _pap_begin
     30                           ;pap.c: 17: TRISB &= 0b00001111;
-    31  00D8  300F               	movlw	15
-    32  00D9  1683               	bsf	3,5
-    33  00DA  0586               	andwf	6	;volatile
+    31  02FA  300F               	movlw	15
+    32  02FB  1683               	bsf	3,5
+    33  02FC  0586               	andwf	6	;volatile
     34                           ;pap.c: 19: secuencia[0]=0b00010000;
-    35  00DB  3010               	movlw	16
-    36  00DC  1283               	bcf	3,5
-    37  00DD  0092               	movwf	_secuencia
+    35  02FD  3010               	movlw	16
+    36  02FE  1283               	bcf	3,5
+    37  02FF  0093               	movwf	_secuencia
     38                           ;pap.c: 20: secuencia[1]=0b00100000;
-    39  00DE  3020               	movlw	32
-    40  00DF  0093               	movwf	_secuencia+1
+    39  0300  3020               	movlw	32
+    40  0301  0094               	movwf	_secuencia+1
     41                           ;pap.c: 21: secuencia[2]=0b01000000;
-    42  00E0  3040               	movlw	64
-    43  00E1  0094               	movwf	_secuencia+2
+    42  0302  3040               	movlw	64
+    43  0303  0095               	movwf	_secuencia+2
     44                           ;pap.c: 22: secuencia[3]=0b10000000;
-    45  00E2  3080               	movlw	-128
-    46  00E3  0095               	movwf	_secuencia+3
+    45  0304  3080               	movlw	-128
+    46  0305  0096               	movwf	_secuencia+3
     47                           ;pap.c: 23: secuencia[4]=0b00000000;
-    48  00E4  0196               	clrf	_secuencia+4
+    48  0306  0197               	clrf	_secuencia+4
     49                           ;pap.c: 25: Paso=0;
-    50  00E5  0190               	clrf	_Paso
+    50  0307  0191               	clrf	_Paso
     51                           ;pap.c: 26: ld=0;
-    52  00E6  0191               	clrf	_ld
+    52  0308  0192               	clrf	_ld
     53                           ;pap.c: 28: }
-    54  00E7  0008               	return
+    54  0309  0008               	return
     55                           
     56                           	psect	text1
-    57  008B                     _buff_pap
+    57  02A9                     _buff_pap
     58                           ;	_temp assigned to ?a_buff_pap+0
     59  0000                     _buff_pap$temp	set	?a_buff_pap
     60                           ;pap.c: 32: unsigned char temp;
-    61  008B  1283               	bcf	3,5
-    62  008C  0E06               	swapf	6,w	;volatile
-    63  008D  39F0               	andlw	240
-    64  008E  00A2               	movwf	?a_buff_pap
+    61  02A9  1283               	bcf	3,5
+    62  02AA  0E06               	swapf	6,w	;volatile
+    63  02AB  39F0               	andlw	240
+    64  02AC  00A3               	movwf	?a_buff_pap
     65                           ;pap.c: 35: temp = temp >> 4;
-    66  008F  0EA2               	swapf	?a_buff_pap
-    67  0090  300F               	movlw	15
-    68  0091  05A2               	andwf	?a_buff_pap
+    66  02AD  0EA3               	swapf	?a_buff_pap
+    67  02AE  300F               	movlw	15
+    68  02AF  05A3               	andwf	?a_buff_pap
     69                           ;pap.c: 39: return temp;
-    70  0092  0822               	movf	?a_buff_pap,w
+    70  02B0  0823               	movf	?a_buff_pap,w
     71                           ;pap.c: 40: }
-    72  0093  0008               	return
+    72  02B1  0008               	return
     73                           
     74                           	psect	text2
-    75  00A7                     _pap_stop
+    75  02C5                     _pap_stop
     76                           ;pap.c: 45: PORTB = secuencia[4] | buff_pap();
-    77  00A7  1283               	bcf	3,5
-    78  00A8  208B               	call	_buff_pap
-    79  00A9  0416               	iorwf	_secuencia+4,w
-    80  00AA  0086               	movwf	6	;volatile
+    77  02C5  1283               	bcf	3,5
+    78  02C6  22A9               	call	_buff_pap
+    79  02C7  0417               	iorwf	_secuencia+4,w
+    80  02C8  0086               	movwf	6	;volatile
     81                           ;pap.c: 47: if (ld==1)
-    82  00AB  0B11               	decfsz	_ld,w
-    83  00AC  28B0               	goto	l4
+    82  02C9  0B12               	decfsz	_ld,w
+    83  02CA  2ACE               	goto	l4
     84                           ;pap.c: 48: PORTA = secuencia[4] >> 4;
-    85  00AD  0E16               	swapf	_secuencia+4,w
-    86  00AE  390F               	andlw	15
-    87  00AF  0085               	movwf	5	;volatile
-    88  00B0                     l4
+    85  02CB  0E17               	swapf	_secuencia+4,w
+    86  02CC  390F               	andlw	15
+    87  02CD  0085               	movwf	5	;volatile
+    88  02CE                     l4
     89                           ;pap.c: 50: Paso=0;
-    90  00B0  0190               	clrf	_Paso
+    90  02CE  0191               	clrf	_Paso
     91                           ;pap.c: 51: }
-    92  00B1  0008               	return
+    92  02CF  0008               	return
     93                           
     94                           	psect	text3
     95                           ;pap.c: 54: void pap_left(void){
-    96  0162                     _pap_left
+    96  031E                     _pap_left
     97                           ;pap.c: 56: if (Paso==3)
-    98  0162  1283               	bcf	3,5
-    99  0163  0810               	movf	_Paso,w
-   100  0164  3A03               	xorlw	3
-   101  0165  1D03               	btfss	3,2
-   102  0166  2969               	goto	l6
+    98  031E  1283               	bcf	3,5
+    99  031F  0811               	movf	_Paso,w
+   100  0320  3A03               	xorlw	3
+   101  0321  1D03               	btfss	3,2
+   102  0322  2B25               	goto	l6
    103                           ;pap.c: 57: Paso=0;
-   104  0167  0190               	clrf	_Paso
+   104  0323  0191               	clrf	_Paso
    105                           ;pap.c: 58: else
-   106  0168  296A               	goto	l7
-   107  0169                     l6
+   106  0324  2B26               	goto	l7
+   107  0325                     l6
    108                           ;pap.c: 59: Paso++;
-   109  0169  0A90               	incf	_Paso
-   110  016A                     l7
+   109  0325  0A91               	incf	_Paso
+   110  0326                     l7
    111                           ;pap.c: 61: PORTB = secuencia[Paso] | buff_pap(
       +                          );
-   112  016A  0810               	movf	_Paso,w
-   113  016B  3E12               	addlw	_secuencia
-   114  016C  0084               	movwf	4
-   115  016D  1283               	bcf	3,5
-   116  016E  208B               	call	_buff_pap
-   117  016F  0400               	iorwf	0,w
-   118  0170  0086               	movwf	6	;volatile
+   112  0326  0811               	movf	_Paso,w
+   113  0327  3E13               	addlw	_secuencia
+   114  0328  0084               	movwf	4
+   115  0329  1283               	bcf	3,5
+   116  032A  22A9               	call	_buff_pap
+   117  032B  0400               	iorwf	0,w
+   118  032C  0086               	movwf	6	;volatile
    119                           ;pap.c: 63: if (ld==1)
-   120  0171  0B11               	decfsz	_ld,w
-   121  0172  0008               	return
+   120  032D  0B12               	decfsz	_ld,w
+   121  032E  0008               	return
    122                           ;pap.c: 64: PORTA = secuencia[Paso] >> 4;
-   123  0173  0810               	movf	_Paso,w
-   124  0174  3E12               	addlw	_secuencia
-   125  0175  0084               	movwf	4
-   126  0176  0E00               	swapf	0,w
-   127  0177  390F               	andlw	15
-   128  0178  0085               	movwf	5	;volatile
+   123  032F  0811               	movf	_Paso,w
+   124  0330  3E13               	addlw	_secuencia
+   125  0331  0084               	movwf	4
+   126  0332  0E00               	swapf	0,w
+   127  0333  390F               	andlw	15
+   128  0334  0085               	movwf	5	;volatile
    129                           ;pap.c: 65: }
-   130  0179  0008               	return
+   130  0335  0008               	return
    131                           
    132                           	psect	text4
    133                           ;pap.c: 68: void pap_right(void)
    134                           ;pap.c: 69: {
-   135  014A                     _pap_right
+   135  0336                     _pap_right
    136                           ;pap.c: 70: if (Paso==0)
-   137  014A  1283               	bcf	3,5
-   138  014B  0890               	movf	_Paso
-   139  014C  1D03               	btfss	3,2
-   140  014D  2951               	goto	l10
+   137  0336  1283               	bcf	3,5
+   138  0337  0891               	movf	_Paso
+   139  0338  1D03               	btfss	3,2
+   140  0339  2B3D               	goto	l10
    141                           ;pap.c: 71: Paso=3;
-   142  014E  3003               	movlw	3
-   143  014F  0090               	movwf	_Paso
+   142  033A  3003               	movlw	3
+   143  033B  0091               	movwf	_Paso
    144                           ;pap.c: 72: else
-   145  0150  2952               	goto	l11
-   146  0151                     l10
+   145  033C  2B3E               	goto	l11
+   146  033D                     l10
    147                           ;pap.c: 73: Paso--;
-   148  0151  0390               	decf	_Paso
-   149  0152                     l11
+   148  033D  0391               	decf	_Paso
+   149  033E                     l11
    150                           ;pap.c: 75: PORTB = secuencia[Paso] | buff_pap(
       +                          );
-   151  0152  0810               	movf	_Paso,w
-   152  0153  3E12               	addlw	_secuencia
-   153  0154  0084               	movwf	4
-   154  0155  1283               	bcf	3,5
-   155  0156  208B               	call	_buff_pap
-   156  0157  0400               	iorwf	0,w
-   157  0158  0086               	movwf	6	;volatile
+   151  033E  0811               	movf	_Paso,w
+   152  033F  3E13               	addlw	_secuencia
+   153  0340  0084               	movwf	4
+   154  0341  1283               	bcf	3,5
+   155  0342  22A9               	call	_buff_pap
+   156  0343  0400               	iorwf	0,w
+   157  0344  0086               	movwf	6	;volatile
    158                           ;pap.c: 77: if (ld==1)
-   159  0159  0B11               	decfsz	_ld,w
-   160  015A  0008               	return
+   159  0345  0B12               	decfsz	_ld,w
+   160  0346  0008               	return
    161                           ;pap.c: 78: PORTA = secuencia[Paso] >> 4;
-   162  015B  0810               	movf	_Paso,w
-   163  015C  3E12               	addlw	_secuencia
-   164  015D  0084               	movwf	4
-   165  015E  0E00               	swapf	0,w
-   166  015F  390F               	andlw	15
-   167  0160  0085               	movwf	5	;volatile
+   162  0347  0811               	movf	_Paso,w
+   163  0348  3E13               	addlw	_secuencia
+   164  0349  0084               	movwf	4
+   165  034A  0E00               	swapf	0,w
+   166  034B  390F               	andlw	15
+   167  034C  0085               	movwf	5	;volatile
    168                           ;pap.c: 79: }
-   169  0161  0008               	return
+   169  034D  0008               	return
    170                           
    171                           	psect	text5
    172                           ;pap.c: 82: char pap_paso(void)
    173                           ;pap.c: 83: {
-   174  005B                     _pap_paso
+   174  0273                     _pap_paso
    175                           ;pap.c: 84: return Paso;
-   176  005B  1283               	bcf	3,5
-   177  005C  0810               	movf	_Paso,w
+   176  0273  1283               	bcf	3,5
+   177  0274  0811               	movf	_Paso,w
    178                           ;pap.c: 85: }
-   179  005D  0008               	return
+   179  0275  0008               	return
    180                           
    181                           	psect	text6
    182                           ;pap.c: 88: void pap_led_test(void)
    183                           ;pap.c: 89: {
-   184  005E                     _pap_led_test
+   184  027A                     _pap_led_test
    185                           ;pap.c: 90: ld = 1;
-   186  005E  1283               	bcf	3,5
-   187  005F  0191               	clrf	_ld
-   188  0060  0A91               	incf	_ld
+   186  027A  1283               	bcf	3,5
+   187  027B  0192               	clrf	_ld
+   188  027C  0A92               	incf	_ld
    189                           ;pap.c: 91: }
-   190  0061  0008               	return
+   190  027D  0008               	return
    191                           
    192                           	psect	text7
    193  0000                     
@@ -292,26 +292,26 @@ Licensed to: MITSOS FOREVER
    283  0000                     
    284                           
    285                           	psect	rbss_0
-   286  0010                     _Paso
-   287  0010                     	ds	1
+   286  0011                     _Paso
+   287  0011                     	ds	1
    288  0000                     
    289  0000                     
    290  0000                     
    291  0000                     
    292  0000                     
-   293  0011                     _ld
-   294  0011                     	ds	1
-   295  0012                     _secuencia
-   296  0012                     	ds	5
+   293  0012                     _ld
+   294  0012                     	ds	1
+   295  0013                     _secuencia
+   296  0013                     	ds	5
 
 
 HI-TECH Software PICC Macro Assembler V8.05PL2
-Symbol Table                                          Mon Nov 13 00:14:53 2017
+Symbol Table                                          Wed Dec  6 21:21:13 2017
 
-            l4 00B0              l6 0169              l7 016A  
-           l10 0151             l11 0152             _ld 0011  
-     _buff_pap 008B             fsr 0004       _pap_left 0162  
-     _pap_paso 005B       _pap_stop 00A7           _Paso 0010  
-    _pap_begin 00D8      _pap_right 014A      _secuencia 0012  
-   ?a_buff_pap 0022   _pap_led_test 005E          status 0003  
+            l4 02CE              l6 0325              l7 0326  
+           l10 033D             l11 033E             _ld 0012  
+     _buff_pap 02A9             fsr 0004       _pap_left 031E  
+     _pap_paso 0273       _pap_stop 02C5           _Paso 0011  
+    _pap_begin 02FA      _pap_right 0336      _secuencia 0013  
+   ?a_buff_pap 0023   _pap_led_test 027A          status 0003  
    clear_bank0 0017  

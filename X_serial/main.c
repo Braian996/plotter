@@ -16,19 +16,22 @@
 __CONFIG( XT & WDTDIS & UNPROTECT & PWRTEN );
 
 unsigned int d;
+unsigned char input;
 //Configuracion de Puertos como entradas o salidas
 void setup(void)
 {
 	serial_begin();
-	putch('*'); //Envio un caracter por serial
-	srf04Begin();
+	putch('*');
+	papX2Begin();
+	
 }
 
 //Bucle infinito
 void loop(void)
 {
-	d = srf04GetDistance();
-	printf("[%d]\r\n",d);
+	input = getch();
+	putch(input);
+	papMove(input);
 
 }
 

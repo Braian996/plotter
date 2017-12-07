@@ -1,19 +1,19 @@
 [p GLOBOPT AUTOSTATIC PIC14 PICMIDHI PICLOMID ]
-"12 C:\HT-PIC\INCLUDE\stdio.h
+"12 d:\HT-PIC\INCLUDE\stdio.h
 [v _ptrdiff_t `i  1 t 2 ]
 "13
 [v _size_t `ui  1 t 2 ]
 "14
 [v _wchar_t `us  1 t 2 ]
-"20 C:\HT-PIC\INCLUDE\stdarg.h
+"20 d:\HT-PIC\INCLUDE\stdarg.h
 [v _va_list `*v  1a t 1 ]
-"61 C:\HT-PIC\INCLUDE\stdio.h
+"61 d:\HT-PIC\INCLUDE\stdio.h
 [v F11 `(v  1 t 0 ]
 "62
 [s S1 __prbuf 3 `*uc  1 ptr 1 0 
 `*F11  1 func 2 1 
 ]
-"12 C:\HT-PIC\INCLUDE\pic1684.h
+"12 d:\HT-PIC\INCLUDE\pic1684.h
 [v _RTCC `Vuc  1 s 1 @1 ]
 "13
 [v _TMR0 `Vuc  1 s 1 @1 ]
@@ -153,7 +153,7 @@
 [v _WR `VXb  1 s 0 @1089 ]
 "98
 [v _RD `VXb  1 s 0 @1088 ]
-"32 D:\Mis Cosas\Escritorio\Electronica\hitech c pic16f84a\X_serial\funciones.h
+"32 E:\plotter-master\X_serial\funciones.h
 [v _S1 `b  1 s 0 @1072 ]
 "33
 [v _S2 `b  1 s 0 @1073 ]
@@ -205,25 +205,27 @@
 [v _D12 `b  1 s 0 @43 ]
 "60
 [v _D13 `b  1 s 0 @44 ]
-"18 D:\Mis Cosas\Escritorio\Electronica\hitech c pic16f84a\X_serial\main.c
+"18 E:\plotter-master\X_serial\main.c
 [v _d `ui  1 e 2 0 ]
-"21
+"19
+[v _input `uc  1 e 1 0 ]
+"22
 [v _setup `(v  1 e 0 0 ]
 {
-"25
+"27
 } 0
-"29
+"31
 [v _loop `(v  1 e 0 0 ]
 {
-"33
+"36
 } 0
-"38
+"41
 [v _main `(v  1 e 0 0 ]
 {
-"53
+"56
 } 0
-[v _srf04GetDistance `(ui  0 e 2 0 ]
+[v _getch `(uc  0 e 1 0 ]
+[v _papX2Begin `(v  0 e 0 0 ]
+[v _papMove `(v  0 e 0 0 ]
 [v _putch `(v  0 e 0 0 ]
-[v _printf `(uc  0 e 1 0 ]
 [v _serial_begin `(v  0 e 0 0 ]
-[v _srf04Begin `(v  0 e 0 0 ]

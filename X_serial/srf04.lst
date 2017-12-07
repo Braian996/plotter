@@ -1,7 +1,7 @@
 
 
 HI-TECH Software PICC Macro Assembler V8.05PL2
-Serial number: HCPIC-00000                            Mon Nov 13 00:14:55 2017
+Serial number: HCPIC-00000                            Wed Dec  6 21:21:17 2017
 
 Licensed to: MITSOS FOREVER
      1                           	processor	16F84A
@@ -34,8 +34,8 @@ Licensed to: MITSOS FOREVER
     24  0000                     
     25                           
     26                           	psect	__Z00000RS_
-    27  003C                     
-    28  003C                     
+    27  0028                     
+    28  0028                     
     29                           
     30                           	psect	intcode
     31  0008                     _isr
@@ -47,9 +47,9 @@ Licensed to: MITSOS FOREVER
     37  000A  110B               	bcf	11,2
     38                           ;srf04.c: 29: dSrf04++;
     39  000B  1283               	bcf	3,5
-    40  000C  0AA0               	incf	_dSrf04
+    40  000C  0AA1               	incf	_dSrf04
     41  000D  1903               	btfsc	3,2
-    42  000E  0AA1               	incf	_dSrf04+1
+    42  000E  0AA2               	incf	_dSrf04+1
     43                           ;srf04.c: 30: TMR0 = 236;
     44  000F  30EC               	movlw	-20
     45  0010  0081               	movwf	1	;volatile
@@ -63,7 +63,7 @@ Licensed to: MITSOS FOREVER
     53                           
     54                           	psect	intret
     55  0012                     int_restore
-    56  0012  083E               	movf	saved_status,w
+    56  0012  0828               	movf	saved_status,w
     57  0013  0083               	movwf	3
     58  0014  0E8C               	swapf	saved_w
     59  0015  0E0C               	swapf	saved_w,w
@@ -74,119 +74,119 @@ Licensed to: MITSOS FOREVER
     64  0004  008C               	movwf	saved_w
     65  0005  0803               	movf	3,w
     66  0006  0183               	clrf	3
-    67  0007  00BE               	movwf	saved_status
+    67  0007  00A8               	movwf	saved_status
     68                           
     69                           	psect	intsave
-    70  003E                     saved_status
-    71  003E                     	ds	1
+    70  0028                     saved_status
+    71  0028                     	ds	1
     72                           
     73                           	psect	text1
     74                           ;srf04.c: 35: void srf04Begin(void){
-    75  00BE                     _srf04Begin
+    75  02DD                     _srf04Begin
     76                           ;srf04.c: 37: TRISB = 0b00000100;
-    77  00BE  3004               	movlw	4
-    78  00BF  1683               	bsf	3,5
-    79  00C0  0086               	movwf	6	;volatile
+    77  02DD  3004               	movlw	4
+    78  02DE  1683               	bsf	3,5
+    79  02DF  0086               	movwf	6	;volatile
     80                           ;srf04.c: 40: dSrf04 = 0;
-    81  00C1  1283               	bcf	3,5
-    82  00C2  01A0               	clrf	_dSrf04
-    83  00C3  01A1               	clrf	_dSrf04+1
+    81  02E0  1283               	bcf	3,5
+    82  02E1  01A1               	clrf	_dSrf04
+    83  02E2  01A2               	clrf	_dSrf04+1
     84                           ;srf04.c: 41: OPTION = 0b00000000;
-    85  00C4  1683               	bsf	3,5
-    86  00C5  0181               	clrf	1
+    85  02E3  1683               	bsf	3,5
+    86  02E4  0181               	clrf	1
     87                           ;srf04.c: 42: GIE = 1;
-    88  00C6  178B               	bsf	11,7
+    88  02E5  178B               	bsf	11,7
     89                           ;srf04.c: 43: TMR0 = 236;
-    90  00C7  30EC               	movlw	-20
-    91  00C8  1283               	bcf	3,5
-    92  00C9  0081               	movwf	1	;volatile
+    90  02E6  30EC               	movlw	-20
+    91  02E7  1283               	bcf	3,5
+    92  02E8  0081               	movwf	1	;volatile
     93                           ;srf04.c: 44: }
-    94  00CA  0008               	return
+    94  02E9  0008               	return
     95                           
     96                           	psect	text2
     97                           ;srf04.c: 47: unsigned int srf04GetDistance(voi
       +                          d){
-    98  01A2                     _srf04GetDistance
+    98  038E                     _srf04GetDistance
     99                           ;	__dcnt assigned to ?a_srf04GetDistance+0
    100  0000                     _srf04GetDistance$_dcnt	set	?a_srf04GetDistance
    101                           ;	__dcnt assigned to ?a_srf04GetDistance+0
    102  0000                     _srf04GetDistance$_dcnt	set	?a_srf04GetDistance
    103                           ;srf04.c: 49: delay(50);
-   104  01A2  3032               	movlw	50
-   105  01A3  1283               	bcf	3,5
-   106  01A4  20CB               	call	_delay
+   104  038E  3032               	movlw	50
+   105  038F  1283               	bcf	3,5
+   106  0390  22D0               	call	_delay
    107                           ;srf04.c: 50: TRIGGER = 1;
-   108  01A5  1486               	bsf	6,1
+   108  0391  1486               	bsf	6,1
    109                           ;srf04.c: 51: { unsigned char _dcnt; _dcnt = (8
       +                          )/((12*1000L)/(4*1000L))|1; while(--_dcnt != 0)
       +                           continue; };
-   110  01A6  3003               	movlw	3
-   111  01A7  00A4               	movwf	?a_srf04GetDistance
-   112  01A8                     l5
-   113  01A8  0BA4               	decfsz	?a_srf04GetDistance
-   114  01A9  29A8               	goto	l5
+   110  0392  3003               	movlw	3
+   111  0393  00A3               	movwf	?a_srf04GetDistance
+   112  0394                     l5
+   113  0394  0BA3               	decfsz	?a_srf04GetDistance
+   114  0395  2B94               	goto	l5
    115                           ;srf04.c: 52: TRIGGER = 0;
-   116  01AA  1086               	bcf	6,1
+   116  0396  1086               	bcf	6,1
    117                           ;srf04.c: 53: { unsigned char _dcnt; _dcnt = (8
       +                          )/((12*1000L)/(4*1000L))|1; while(--_dcnt != 0)
       +                           continue; };
-   118  01AB  3003               	movlw	3
-   119  01AC  00A4               	movwf	?a_srf04GetDistance
-   120  01AD                     l9
-   121  01AD  0BA4               	decfsz	?a_srf04GetDistance
-   122  01AE  29AD               	goto	l9
+   118  0397  3003               	movlw	3
+   119  0398  00A3               	movwf	?a_srf04GetDistance
+   120  0399                     l9
+   121  0399  0BA3               	decfsz	?a_srf04GetDistance
+   122  039A  2B99               	goto	l9
    123                           ;srf04.c: 55: while (!ECHO);
-   124  01AF                     l11
-   125  01AF  1D06               	btfss	6,2
-   126  01B0  29AF               	goto	l11
+   124  039B                     l11
+   125  039B  1D06               	btfss	6,2
+   126  039C  2B9B               	goto	l11
    127                           ;srf04.c: 57: dSrf04 = 0;
-   128  01B1  01A0               	clrf	_dSrf04
-   129  01B2  01A1               	clrf	_dSrf04+1
+   128  039D  01A1               	clrf	_dSrf04
+   129  039E  01A2               	clrf	_dSrf04+1
    130                           ;srf04.c: 58: TMR0 = 236;
-   131  01B3  30EC               	movlw	-20
-   132  01B4  0081               	movwf	1	;volatile
+   131  039F  30EC               	movlw	-20
+   132  03A0  0081               	movwf	1	;volatile
    133                           ;srf04.c: 59: T0IE = 1;
-   134  01B5  168B               	bsf	11,5
+   134  03A1  168B               	bsf	11,5
    135                           ;srf04.c: 61: while (ECHO);
-   136  01B6                     l14
-   137  01B6  1906               	btfsc	6,2
-   138  01B7  29B6               	goto	l14
+   136  03A2                     l14
+   137  03A2  1906               	btfsc	6,2
+   138  03A3  2BA2               	goto	l14
    139                           ;srf04.c: 63: T0IE = 0;
-   140  01B8  128B               	bcf	11,5
+   140  03A4  128B               	bcf	11,5
    141                           ;srf04.c: 65: if (dSrf04<=3)
-   142  01B9  3000               	movlw	0
-   143  01BA  0221               	subwf	_dSrf04+1,w
-   144  01BB  3004               	movlw	4
-   145  01BC  1903               	btfsc	3,2
-   146  01BD  0220               	subwf	_dSrf04,w
-   147  01BE  1803               	btfsc	3,0
-   148  01BF  29C3               	goto	l17
+   142  03A5  3000               	movlw	0
+   143  03A6  0222               	subwf	_dSrf04+1,w
+   144  03A7  3004               	movlw	4
+   145  03A8  1903               	btfsc	3,2
+   146  03A9  0221               	subwf	_dSrf04,w
+   147  03AA  1803               	btfsc	3,0
+   148  03AB  2BAF               	goto	l17
    149                           ;srf04.c: 66: dSrf04=3;
-   150  01C0  3003               	movlw	3
-   151  01C1  00A0               	movwf	_dSrf04
-   152  01C2  01A1               	clrf	_dSrf04+1
-   153  01C3                     l17
+   150  03AC  3003               	movlw	3
+   151  03AD  00A1               	movwf	_dSrf04
+   152  03AE  01A2               	clrf	_dSrf04+1
+   153  03AF                     l17
    154                           ;srf04.c: 68: if (dSrf04>=330 )
-   155  01C3  3001               	movlw	1
-   156  01C4  0221               	subwf	_dSrf04+1,w
-   157  01C5  304A               	movlw	74
-   158  01C6  1903               	btfsc	3,2
-   159  01C7  0220               	subwf	_dSrf04,w
-   160  01C8  1C03               	btfss	3,0
-   161  01C9  29CE               	goto	l18
+   155  03AF  3001               	movlw	1
+   156  03B0  0222               	subwf	_dSrf04+1,w
+   157  03B1  304A               	movlw	74
+   158  03B2  1903               	btfsc	3,2
+   159  03B3  0221               	subwf	_dSrf04,w
+   160  03B4  1C03               	btfss	3,0
+   161  03B5  2BBA               	goto	l18
    162                           ;srf04.c: 69: dSrf04=330;
-   163  01CA  304A               	movlw	74
-   164  01CB  00A0               	movwf	_dSrf04
-   165  01CC  3001               	movlw	1
-   166  01CD  00A1               	movwf	_dSrf04+1
-   167  01CE                     l18
+   163  03B6  304A               	movlw	74
+   164  03B7  00A1               	movwf	_dSrf04
+   165  03B8  3001               	movlw	1
+   166  03B9  00A2               	movwf	_dSrf04+1
+   167  03BA                     l18
    168                           ;srf04.c: 71: return dSrf04;
-   169  01CE  0821               	movf	_dSrf04+1,w
-   170  01CF  00B6               	movwf	btemp+1
-   171  01D0  0820               	movf	_dSrf04,w
-   172  01D1  00B5               	movwf	btemp
+   169  03BA  0822               	movf	_dSrf04+1,w
+   170  03BB  00A7               	movwf	btemp+1
+   171  03BC  0821               	movf	_dSrf04,w
+   172  03BD  00A6               	movwf	btemp
    173                           ;srf04.c: 72: }
-   174  01D2  0008               	return
+   174  03BE  0008               	return
    175                           
    176                           	psect	text3
    177  0000                     
@@ -289,26 +289,26 @@ Licensed to: MITSOS FOREVER
    274  0000                     
    275                           
    276                           	psect	rbss_0
-   277  0020                     _dSrf04
-   278  0020                     	ds	2
+   277  0021                     _dSrf04
+   278  0021                     	ds	2
    279                           
    280                           	psect	temp
-   281  0035                     btemp
-   282  0035                     	ds	2
+   281  0026                     btemp
+   282  0026                     	ds	2
 
 
 HI-TECH Software PICC Macro Assembler V8.05PL2
-Symbol Table                                          Mon Nov 13 00:14:55 2017
+Symbol Table                                          Wed Dec  6 21:21:17 2017
 
-                     l1 0011                       l5 01A8  
-                     l9 01AD                      l11 01AF  
-                    l14 01B6                      l17 01C3  
-                    l18 01CE                     _isr 0008  
-                _dSrf04 0020                    btemp 0035  
+                     l1 0011                       l5 0394  
+                     l9 0399                      l11 039B  
+                    l14 03A2                      l17 03AF  
+                    l18 03BA                     _isr 0008  
+                _dSrf04 0021                    btemp 0026  
                 saved_w 000C                int_entry 0004  
-            _srf04Begin 00BE                   _delay 00CB  
-    ?a_srf04GetDistance 0024             saved_status 003E  
+            _srf04Begin 02DD                   _delay 02D0  
+    ?a_srf04GetDistance 0023             saved_status 0028  
                  status 0003                 int_func 0008  
-      _srf04GetDistance 01A2              clear_bank0 0017  
+      _srf04GetDistance 038E              clear_bank0 0017  
             int_restore 0012              used_btemp0 0001  
             used_btemp1 0001  

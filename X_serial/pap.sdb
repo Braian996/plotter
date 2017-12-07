@@ -1,5 +1,5 @@
 [p GLOBOPT AUTOSTATIC PIC14 PICMIDHI PICLOMID ]
-"12 C:\HT-PIC\INCLUDE\pic1684.h
+"12 d:\HT-PIC\INCLUDE\pic1684.h
 [v _RTCC `Vuc  1 s 1 @1 ]
 "13
 [v _TMR0 `Vuc  1 s 1 @1 ]
@@ -139,7 +139,7 @@
 [v _WR `VXb  1 s 0 @1089 ]
 "98
 [v _RD `VXb  1 s 0 @1088 ]
-"32 D:\Mis Cosas\Escritorio\Electronica\hitech c pic16f84a\X_serial\funciones.h
+"32 E:\plotter-master\X_serial\funciones.h
 [v _S1 `b  1 s 0 @1072 ]
 "33
 [v _S2 `b  1 s 0 @1073 ]
@@ -191,7 +191,7 @@
 [v _D12 `b  1 s 0 @43 ]
 "60
 [v _D13 `b  1 s 0 @44 ]
-"10 D:\Mis Cosas\Escritorio\Electronica\hitech c pic16f84a\X_serial\pap.c
+"10 E:\plotter-master\X_serial\pap.c
 [v _secuencia `uc  5a e 5 0 ]
 "11
 [v _Paso `uc  1 e 1 0 ]
