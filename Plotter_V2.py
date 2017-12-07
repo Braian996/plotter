@@ -213,8 +213,8 @@ class Main(wx.Frame):
 
 
 
-		cuchilla = 0 #Variables de SIMULACION
-		cuchilla_1 = 0 #Variables de SIMULACION
+		cuchilla = 0 #SOLENOIDE de plotter
+		#cuchilla_1 = 0 #Variables de SIMULACION
 
 		#Variables de cant de Movimientos de GCODE
 		movX0 = 0
@@ -267,10 +267,19 @@ class Main(wx.Frame):
 
 			#COMPRUEBA PUNTOS INICIALES
 			if palabras[0] == 'G00':
-				if palabras[1][0] == 'Z' and palabras[1][1] == '-':
-					cuchilla = 1
-				else:
-					cuchilla = 0
+				if palabras[1][0] == 'Z': 
+					if palabras[1][1] == '-':
+						cuchilla = 0
+						a3 = '000'+str(cuchilla)+'0000'
+						b3 = int(str(a3), 2)
+						ser.write(chr(b3)) #Manda movimiento
+						time.sleep(1)
+					else:
+						cuchilla = 1
+						a3 = '000'+str(cuchilla)+'0000'
+						b3 = int(str(a3), 2)
+						ser.write(chr(b3)) #Manda movimiento
+						time.sleep(1)
 				#COMPRUEBA X y Y
 				if palabras[1][0] == 'X' and palabras[2][0] == 'Y':
 					movX0 = palabras[1].replace("X", "")
@@ -280,13 +289,15 @@ class Main(wx.Frame):
 					motorActualY = float(movY0)
 
 			elif palabras[0] == 'G01': #COMPRUEBA MOVIMIENTO
-				if palabras[1][0] == 'Z' and palabras[1][1] == '-':
-					cuchilla = 1
-				else:
-					cuchilla = 0
+				# if palabras[1][0] == 'Z': 
+				# 	if palabras[1][1] == '-':
+				# 		cuchilla = 0
+				
 
+				#print "SOLENOIDE: "+str(cuchilla)
 				#Comprueba si hay X y Y
 				if palabras[1][0] == 'X' and palabras[2][0] == 'Y':
+					cuchilla = 0
 					#Asigna el valor de X e Y en variables para sacar pasos y distancia
 					movX1 = palabras[1].replace("X", "")
 					movY1 = palabras[2].replace("Y", "")
