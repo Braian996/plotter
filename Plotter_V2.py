@@ -44,7 +44,8 @@ class Main(wx.Frame):
 		self.btn_right20 = wx.Button(self.panel, label='+20', size=(45,50))
 		self.btn_conectar = wx.ToggleButton(self.panel, label='Conectar', size=(90,50))
 		self.btn_mover = wx.Button(self.panel, label='Mover', size=(60, 50))
-		self.btn_open = wx.Button(self.panel, label='Abrir', size=(60, 50))
+		self.btn_open = wx.BitmapButton(self.panel, -1,wx.Bitmap('icons/archivo_32.png', wx.BITMAP_TYPE_PNG),
+		style=wx.BORDER, size=(50,50))
 		#---FIN---
 		#Agregando controles al sizer
 		self.sizer.Add(self.label_01, pos=(0,2),flag=wx.TOP|wx.LEFT|wx.BOTTOM, border=5)
@@ -113,7 +114,7 @@ class Main(wx.Frame):
 			#CONEXION
 			try:
 				ser = serial.Serial() #Se asigna el objeto SERIAL
-				ser.port = puerto
+				ser.port = puerto #Se asigna el puerto disponible al objeto serial
 				ser.open() #Abre la conexion
 				print(ser.isOpen()) #DEBUG
 				print('Conectado') #DEBUG
@@ -185,7 +186,7 @@ class Main(wx.Frame):
 		ventana.SetDimensions(0, 0, 200, 50) #Se da las dimensiones
 		#Crea el FileOpen Dialog
 		openFileDialog = wx.FileDialog(ventana, "Abrir archivo", "", "", "Archivos Gcodes (*.gcode)|*.gcode", wx.FD_OPEN | wx.FD_FILE_MUST_EXIST)
-		openFileDialog.ShowModal()
+		openFileDialog.ShowModal() #Muestra la ventana
 		rutaArchivo = openFileDialog.GetPath() #Asigna el path del archivo a la variable
 		print rutaArchivo #DEBUG
 		openFileDialog.Destroy() #Se destruye el objeto openFileDialog
@@ -197,8 +198,8 @@ class Main(wx.Frame):
 		archivo = open(rutaArchivo, "r")
 
 		#CONSTANTES
-		pasosMX = 0.41667 #Equivalente de 1 paso en motor X
-		pasosMY = 0.11764 #Equivalente de 1 paso en motor Y
+		pasosMX = 0.41667 #Equivalente en mm de 1 paso en motor X
+		pasosMY = 0.11764 #Equivalente en mm de 1 paso en motor Y
 
 		#Variable de PASOS y DIRECCION motor
 		pm1 = 0
@@ -267,7 +268,7 @@ class Main(wx.Frame):
 
 			#COMPRUEBA PUNTOS INICIALES
 			if palabras[0] == 'G00':
-				if palabras[1][0] == 'Z': 
+				if palabras[1][0] == 'Z':
 					if palabras[1][1] == '-':
 						cuchilla = 0
 						a3 = '000'+str(cuchilla)+'0000'
@@ -289,10 +290,10 @@ class Main(wx.Frame):
 					motorActualY = float(movY0)
 
 			elif palabras[0] == 'G01': #COMPRUEBA MOVIMIENTO
-				# if palabras[1][0] == 'Z': 
+				# if palabras[1][0] == 'Z':
 				# 	if palabras[1][1] == '-':
 				# 		cuchilla = 0
-				
+
 
 				#print "SOLENOIDE: "+str(cuchilla)
 				#Comprueba si hay X y Y
@@ -350,8 +351,7 @@ class Main(wx.Frame):
 						#X SUPERA A Y
 						if pasosx > pasosy and pasosy > 1:
 							print "MOTOR Y SUPERA A MOTOR X"
-							cub_interc = convertir_num_decimal_string(str(pasosx / pasosy))
-							#Se usa la funcion para corregir error de perdida de pasos
+							cub_interc = convertir_num_decimal_string(str(pasosx / pasosy)) #Se saca la interseccion
 							cub_int = int(cub_interc) #Se convierte el valor a entero
 							xp = pasosx
 							cub_cont = 0
@@ -383,8 +383,7 @@ class Main(wx.Frame):
 							#Y SUPERA A X
 							if pasosy > pasosx and pasosx > 1:
 								print "MOTOR Y SUPERA A MOTOR X"
-								cub_interc = convertir_num_decimal_string(str(pasosy / pasosx))
-								#Se usa la funcion para corregir error de perdida de pasos
+								cub_interc = convertir_num_decimal_string(str(pasosy / pasosx)) #Se saca la interseccion
 								cub_int = int(cub_interc) #Se convierte el valor a entero
 								yp = pasosy
 								cub_cont = 0
@@ -466,18 +465,6 @@ class Main(wx.Frame):
 
 
 		archivo.close() #CIERRA EL ARCHIVO DE LECTURA
-
-
-
-
-
-
-
-#print cuchilla
-#print cuchilla_1
-
-
-
 
 
 	#---FIN---
