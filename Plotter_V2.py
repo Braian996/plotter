@@ -1,9 +1,28 @@
 # -*- coding: utf-8 -*-
+__author__ = "Ledesma Braian Alejandro, Cubilla Sebastian, Visfer David, Rodriguez Angel y Cena Emiliano"
+__copyright__ = "Copyright 2017, Proyecto Cutting Plotter"
+__credits__ = ["Ledesma Braian Alejandro", "Cubilla Sebastian", "Visfer David", "Rodriguez Angel", "Cena Emiliano"]
+__version__ = "2.6.2"
+__maintainer__ = "Ledesma Braian Alejandro y Cubilla Sebastian"
+__status__ = "En produccion"
+
+'''
+ DESCRIPCION: La class Main genera la interfaz grafica y dentro de ella tiene los eventos y funciones de botones y
+ la conexion serial con la plotter.
+ La variable pasosMX y pasosMY es el equivalente en mm (Milimetros) de 1 paso del motor.
+ la variable pm1 y pm2 deben usan los valores 0 o 1,
+ 0 inhabilita movimiento y 1 habilita movimiento. (pm1 - MOTOR X / pm2 - MOTOR Y)
+ DirMX y DirMY usan idem valores a pm1 y pm2,
+ 0 cambia direccion IZQ. y 1 direccion DER.
+'''
+
+
 import sys
 sys.path.append('C:\\Python27\\lib\\site-packages\\wx-3.0-msw')
 import wx #Se importa la libreria para grafico
 import serial
 import time
+import serialMOV #Se importa el modulo de movimiento
 
 #Variables
 
@@ -13,8 +32,8 @@ class Main(wx.Frame):
 	#Se inicializa el grafico
 	def __init__(self, parent, title):
 		wx.Frame.__init__(self, parent, title=title)
-		self.Centre()
-		self.InitUI()
+		self.Centre() #Centra la ventana
+		self.InitUI() #Llama a la funcion InitrUI
 
 	#Se le agrega elementos al entorno
 	def InitUI(self):
@@ -23,12 +42,19 @@ class Main(wx.Frame):
 		self.sizer = wx.GridBagSizer(2, 2)
 		#----FIN----
 		#Barra menu
-		menubar = wx.MenuBar()
-		salir_OP = wx.Menu()
+		menubar = wx.MenuBar() #Se crea el menubar
+		archivo_OP = wx.Menu() #Se crea opcion Salir
 
-		salir_OP.Append(wx.ID_EXIT, '&Salir')
-		self.Bind(wx.EVT_MENU, self.OnQuit)#Evento MENU
-		menubar.Append(salir_OP, '&Archivo')
+		abrir_op = wx.MenuItem(archivo_OP, wx.ID_OPEN, '&Abrir\tCtrl+O') #Se crea el item abrir
+
+		salir_OP = wx.MenuItem(archivo_OP, wx.ID_EXIT, '&Salir') #Se crea el item salir
+
+		archivo_OP.AppendItem(abrir_op)	#Se le concatena el menuitem al menu
+		archivo_OP.AppendSeparator() #Crean una linea d separacion
+		archivo_OP.AppendItem(salir_OP) #Se le concatena el menuitem al menu
+		self.Bind(wx.EVT_MENU, self.OnQuit, salir_OP) #Evento para cerrar archivo
+		self.Bind(wx.EVT_MENU, self.OnOpen, abrir_op) #Evento para abrir archivo
+		menubar.Append(archivo_OP, '&Archivo')
 		self.SetMenuBar(menubar)
 		#---FIN---
 
@@ -36,48 +62,50 @@ class Main(wx.Frame):
 		self.CajaStatic = wx.StaticBox(self.panel, label= 'MOTOR X', pos=(10,5), size=(240, 170))
 		#self.label_01 = wx.StaticText(self.panel, label = 'Motor Varilla')
 		#self.btnX_left5 = wx.Button(self.panel, label='-5', size=(45,50))
-		self.btnX_left5 = wx.BitmapButton(self.panel, 1,wx.Bitmap('icons/leftArrow_24.png', wx.BITMAP_TYPE_PNG),
-		style=wx.BORDER, size=(45,50))
-		self.btnX_left10 = wx.Button(self.panel, label='-10', size=(45,50))
-		self.btnX_left15 = wx.Button(self.panel, label='-15', size=(45,50))
-		self.btnX_left20 = wx.Button(self.panel, label='-20', size=(45,50))
+		self.btnX_left = wx.BitmapButton(self.panel, 1,wx.Bitmap('icons/leftArrow_24.png', wx.BITMAP_TYPE_PNG),
+		style=wx.NO_BORDER, size=(45,50))
+		self.btnX_left10 = wx.Button(self.panel, label='15', size=(45,50))
+		self.btnX_left15 = wx.Button(self.panel, label='20', size=(45,50))
+		self.btnX_left20 = wx.Button(self.panel, label='25', size=(45,50))
 		#self.btnX_right5 = wx.Button(self.panel, label='+5', size=(45,50))
-		self.btnX_right5 = wx.BitmapButton(self.panel, 2,wx.Bitmap('icons/rightArrow2_24.png', wx.BITMAP_TYPE_PNG),
-		style=wx.BORDER, size=(45,50))
-		self.btnX_right10 = wx.Button(self.panel, label='+10', size=(45,50))
-		self.btnX_right15 = wx.Button(self.panel, label='+15', size=(45,50))
-		self.btnX_right20 = wx.Button(self.panel, label='+20', size=(45,50))
+		self.btnX_right = wx.BitmapButton(self.panel, 2,wx.Bitmap('icons/rightArrow2_24.png', wx.BITMAP_TYPE_PNG),
+		style=wx.NO_BORDER, size=(45,50))
+		self.btnX_right10 = wx.Button(self.panel, label='15', size=(45,50))
+		self.btnX_right15 = wx.Button(self.panel, label='20', size=(45,50))
+		self.btnX_right20 = wx.Button(self.panel, label='25', size=(45,50))
 
 		self.CajaStatic2 = wx.StaticBox(self.panel, label='MOTOR Y', pos=(260,5), size=(240, 170))
-		self.btnY_left5 = wx.Button(self.panel, label='-5', size=(45,50))
-		self.btnY_left10 = wx.Button(self.panel, label='-10', size=(45,50))
-		self.btnY_left15 = wx.Button(self.panel, label='-15', size=(45,50))
-		self.btnY_left20 = wx.Button(self.panel, label='-20', size=(45,50))
-		self.btnY_right5 = wx.Button(self.panel, label='+5', size=(45,50))
-		self.btnY_right10 = wx.Button(self.panel, label='+10', size=(45,50))
-		self.btnY_right15 = wx.Button(self.panel, label='+15', size=(45,50))
-		self.btnY_right20 = wx.Button(self.panel, label='+20', size=(45,50))
+		self.btnY_left2 = wx.BitmapButton(self.panel, 1,wx.Bitmap('icons/leftArrow_24.png', wx.BITMAP_TYPE_PNG),
+		style=wx.NO_BORDER, size=(45,50))
+		self.btnY_left10 = wx.Button(self.panel, label='15', size=(45,50))
+		self.btnY_left15 = wx.Button(self.panel, label='20', size=(45,50))
+		self.btnY_left20 = wx.Button(self.panel, label='25', size=(45,50))
+		self.btnY_right2 = wx.BitmapButton(self.panel, 2,wx.Bitmap('icons/rightArrow2_24.png', wx.BITMAP_TYPE_PNG),
+		style=wx.NO_BORDER, size=(45,50))
+		self.btnY_right10 = wx.Button(self.panel, label='15', size=(45,50))
+		self.btnY_right15 = wx.Button(self.panel, label='20', size=(45,50))
+		self.btnY_right20 = wx.Button(self.panel, label='25', size=(45,50))
 
 		self.btn_conectar = wx.ToggleButton(self.panel, label='Conectar', size=(90,50))
 		self.btn_mover = wx.Button(self.panel, label='Mover', size=(60, 50))
-		self.btn_open = wx.BitmapButton(self.panel, -1,wx.Bitmap('icons/archivo_32.png', wx.BITMAP_TYPE_PNG),
+		self.btn_open = wx.BitmapButton(self.panel, -1,wx.Bitmap('icons/file_32.png', wx.BITMAP_TYPE_PNG),
 		style=wx.BORDER, size=(50,50))
 		#---FIN---
 		#Agregando controles al sizer
 		#self.sizer.Add(self.label_01, pos=(0,2),flag=wx.TOP|wx.LEFT|wx.BOTTOM, border=5)
-		self.sizer.Add(self.btnX_left5, pos=(2,2), flag=wx.ALL)
+		self.sizer.Add(self.btnX_left, pos=(2,2), flag=wx.ALL)
 		self.sizer.Add(self.btnX_left10, pos=(2,3), flag=wx.ALL)
 		self.sizer.Add(self.btnX_left15, pos=(2,4), flag=wx.ALL)
 		self.sizer.Add(self.btnX_left20, pos=(2,5), flag=wx.ALL)
-		self.sizer.Add(self.btnX_right5, pos=(3,2), flag=wx.ALL)
+		self.sizer.Add(self.btnX_right, pos=(3,2), flag=wx.ALL)
 		self.sizer.Add(self.btnX_right10, pos=(3,3), flag=wx.ALL)
 		self.sizer.Add(self.btnX_right15, pos=(3,4), flag=wx.ALL)
 		self.sizer.Add(self.btnX_right20, pos=(3,5), flag=wx.ALL)
-		self.sizer.Add(self.btnY_left5, pos=(2,7), flag=wx.ALL)
+		self.sizer.Add(self.btnY_left2, pos=(2,7), flag=wx.ALL)
 		self.sizer.Add(self.btnY_left10, pos=(2,8), flag=wx.ALL)
 		self.sizer.Add(self.btnY_left15, pos=(2,9), flag=wx.ALL)
 		self.sizer.Add(self.btnY_left20, pos=(2,10), flag=wx.ALL)
-		self.sizer.Add(self.btnY_right5, pos=(3,7), flag=wx.ALL)
+		self.sizer.Add(self.btnY_right2, pos=(3,7), flag=wx.ALL)
 		self.sizer.Add(self.btnY_right10, pos=(3,8), flag=wx.ALL)
 		self.sizer.Add(self.btnY_right15, pos=(3,9), flag=wx.ALL)
 		self.sizer.Add(self.btnY_right20, pos=(3,10), flag=wx.ALL)
@@ -89,19 +117,19 @@ class Main(wx.Frame):
 		self.panel.SetSizerAndFit(self.sizer)
 		#---FIN---
 		#Deshabilitando botones de control Plotter
-		self.btnX_left5.Disable()
+
 		self.btnX_left10.Disable()
 		self.btnX_left15.Disable()
 		self.btnX_left20.Disable()
-		self.btnX_right5.Disable()
+
 		self.btnX_right10.Disable()
 		self.btnX_right15.Disable()
 		self.btnX_right20.Disable()
-		self.btnY_left5.Disable()
+
 		self.btnY_left10.Disable()
 		self.btnY_left15.Disable()
 		self.btnY_left20.Disable()
-		self.btnY_right5.Disable()
+
 		self.btnY_right10.Disable()
 		self.btnY_right15.Disable()
 		self.btnY_right20.Disable()
@@ -110,14 +138,22 @@ class Main(wx.Frame):
 		#---FIN---
 		#Habilitando EVENTOS
 		self.panel.Bind(wx.EVT_TOGGLEBUTTON, self.OnConect, self.btn_conectar)
-		self.panel.Bind(wx.EVT_BUTTON, self.OnLeft5, self.btnX_left5)
-		self.panel.Bind(wx.EVT_BUTTON, self.OnLeft10, self.btnX_left10)
-		self.panel.Bind(wx.EVT_BUTTON, self.OnLeft15, self.btnX_left15)
-		self.panel.Bind(wx.EVT_BUTTON, self.OnLeft20, self.btnX_left20)
-		self.panel.Bind(wx.EVT_BUTTON, self.OnRight5, self.btnX_right5)
-		self.panel.Bind(wx.EVT_BUTTON, self.OnRight10, self.btnX_right10)
-		self.panel.Bind(wx.EVT_BUTTON, self.OnRight15, self.btnX_right15)
-		self.panel.Bind(wx.EVT_BUTTON, self.OnRight20, self.btnX_right20)
+
+		self.panel.Bind(wx.EVT_BUTTON, self.OnLeftX10, self.btnX_left10)
+		self.panel.Bind(wx.EVT_BUTTON, self.OnLeftX15, self.btnX_left15)
+		self.panel.Bind(wx.EVT_BUTTON, self.OnLeftX20, self.btnX_left20)
+
+		self.panel.Bind(wx.EVT_BUTTON, self.OnRightX10, self.btnX_right10)
+		self.panel.Bind(wx.EVT_BUTTON, self.OnRightX15, self.btnX_right15)
+		self.panel.Bind(wx.EVT_BUTTON, self.OnRightX20, self.btnX_right20)
+
+		self.panel.Bind(wx.EVT_BUTTON, self.OnLeftY10, self.btnY_left10)
+		self.panel.Bind(wx.EVT_BUTTON, self.OnLeftY15, self.btnY_left15)
+		self.panel.Bind(wx.EVT_BUTTON, self.OnLeftY20, self.btnY_left20)
+
+		self.panel.Bind(wx.EVT_BUTTON, self.OnRightY10, self.btnY_right10)
+		self.panel.Bind(wx.EVT_BUTTON, self.OnRightY15, self.btnY_right15)
+		self.panel.Bind(wx.EVT_BUTTON, self.OnRightY20, self.btnY_right20)
 		self.panel.Bind(wx.EVT_BUTTON, self.OnMove, self.btn_mover)
 		self.panel.Bind(wx.EVT_BUTTON, self.OnOpen, self.btn_open)
 		#---FIN---
@@ -152,19 +188,19 @@ class Main(wx.Frame):
 				print('Conectado') #DEBUG
 				event.GetEventObject().SetLabel("Desconectar") #Se cambia el LABEL de boton
 				#Habilito los botones de control Plotter
-				self.btnX_left5.Enable()
+
 				self.btnX_left10.Enable()
 				self.btnX_left15.Enable()
 				self.btnX_left20.Enable()
-				self.btnX_right5.Enable()
+
 				self.btnX_right10.Enable()
 				self.btnX_right15.Enable()
 				self.btnX_right20.Enable()
-				self.btnY_left5.Enable()
+
 				self.btnY_left10.Enable()
 				self.btnY_left15.Enable()
 				self.btnY_left20.Enable()
-				self.btnY_right5.Enable()
+
 				self.btnY_right10.Enable()
 				self.btnY_right15.Enable()
 				self.btnY_right20.Enable()
@@ -178,19 +214,19 @@ class Main(wx.Frame):
 		else: #Si estado da FALSE, desconecta y cierra puerto SERIAL
 			ser.close()
 			#DESHABILITO LOS BOTONES
-			self.btnX_left5.Disable()
+
 			self.btnX_left10.Disable()
 			self.btnX_left15.Disable()
 			self.btnX_left20.Disable()
-			self.btnX_right5.Disable()
+
 			self.btnX_right10.Disable()
 			self.btnX_right15.Disable()
 			self.btnX_right20.Disable()
-			self.btnY_left5.Disable()
+
 			self.btnY_left10.Disable()
 			self.btnY_left15.Disable()
 			self.btnY_left20.Disable()
-			self.btnY_right5.Disable()
+
 			self.btnY_right10.Disable()
 			self.btnY_right15.Disable()
 			self.btnY_right20.Disable()
@@ -200,32 +236,45 @@ class Main(wx.Frame):
 			print(ser.isOpen()) #DEBUG
 			event.GetEventObject().SetLabel("Conectar") #Se cambia el LABEL
 
-	#Control de Motor Correa
-	#Izquierda
-	def OnLeft5(self, event):
-		ser.write('r')
-	def OnLeft10(self, event):
-		ser.write('e')
-	def OnLeft15(self, event):
-		ser.write('w')
-	def OnLeft20(self, event):
-		ser.write('q')
-	#Derecha
-	def OnRight5(self, event):
-		for n in range(86):
-			ser.write(chr(int('00000000',2)))
-			time.sleep(.02)
-			a = '00000010'
-			b = int(str(a), 2)
-			ser.write(chr(b))
-			time.sleep(.02)
-	def OnRight10(self, event):
-		ser.write('y')
-	def OnRight15(self, event):
-		ser.write('u')
-	def OnRight20(self, event):
-		ser.write('i')
-	#---FIN MOTOR CORREA
+
+
+	#Control de Motor X
+	#Izquierda MOTOR X
+
+	def OnLeftX10(self, event):
+		f = serialMOV.fPasos(15, 0.002, 1, 0, 0, 0, ser, time)
+	def OnLeftX15(self, event):
+		f = serialMOV.fPasos(20, 0.002, 1, 0, 0, 0, ser, time)
+	def OnLeftX20(self, event):
+		f = serialMOV.fPasos(25, 0.002, 1, 0, 0, 0, ser, time)
+	#Derecha MOTOR X
+
+	def OnRightX10(self, event):
+		f = serialMOV.fPasos(15, 0.002, 1, 1, 0, 0, ser, time)
+	def OnRightX15(self, event):
+		f = serialMOV.fPasos(20, 0.002, 1, 1, 0, 0, ser, time)
+	def OnRightX20(self, event):
+		f = serialMOV.fPasos(25, 0.002, 1, 1, 0, 0, ser, time)
+	#---FIN MOTOR X
+
+	#Control de Motor Y
+	#Izquierda MOTOR Y
+
+	def OnLeftY10(self, event):
+		f = serialMOV.fPasos(15, 0.02, 0, 0, 1, 1, ser, time)
+	def OnLeftY15(self, event):
+		f = serialMOV.fPasos(20, 0.02, 0, 0, 1, 1, ser, time)
+	def OnLeftY20(self, event):
+		f = serialMOV.fPasos(25, 0.02, 0, 0, 1, 1, ser, time)
+	#Derecha MOTOR Y
+
+	def OnRightY10(self, event):
+		f = serialMOV.fPasos(15, 0.02, 0, 0, 1, 0, ser, time)
+	def OnRightY15(self, event):
+		f = serialMOV.fPasos(20, 0.02, 0, 0, 1, 0, ser, time)
+	def OnRightY20(self, event):
+		f = serialMOV.fPasos(25, 0.02, 0, 0, 1, 0, ser, time)
+	#---FIN MOTOR Y
 
 	#BOTON PARA ABRIR ARCHIVO GCODE (EN PRUEBA)
 	def OnOpen(self, event):
@@ -461,7 +510,7 @@ class Main(wx.Frame):
 										time.sleep(tiempo03)
 							else:
 								#MOVIMIENTO DE AMBOS MOTORES A LA PAR
-								if pasosx == pasosy and (pasosx > 1 and pasosy > 1):
+								if pasosx == pasosy and (pasosx > 2 and pasosy > 2):
 									print "AMBOS MOTORES A LA PAR"
 									pm1 = 1
 									pm2 = 1
@@ -471,7 +520,7 @@ class Main(wx.Frame):
 										a1 = '000'+str(cuchilla)+str(pm1)+str(DirMX)+str(pm2)+str(DirMY)
 										b1 = int(str(a1), 2)
 										ser.write(chr(b1)) #Manda movimiento
-										time.sleep(tiempo03)
+										time.sleep(tiempo02)
 								else:
 									#MOVIMIENTO SOLO DE MOTOR X
 									if pasosx > 1 and (pasosy >= 0 and pasosy <= 1):
@@ -518,5 +567,5 @@ class Main(wx.Frame):
 	#---FIN---
 #FIN PROCESO PRINCIPAL
 app = wx.App()#Abre la APP
-Main(None, 'Plotter V2')#Se llama al proceso principal
+Main(None, 'Plotter V2.6')#Se llama al proceso principal
 app.MainLoop()#Se crea el ciclo
