@@ -75,12 +75,12 @@ class Main(wx.Frame):
 		self.btnX_right20 = wx.Button(self.panel, label='25', size=(45,50))
 
 		self.CajaStatic2 = wx.StaticBox(self.panel, label='MOTOR Y', pos=(260,5), size=(240, 170))
-		self.btnY_left2 = wx.BitmapButton(self.panel, 1,wx.Bitmap('icons/leftArrow_24.png', wx.BITMAP_TYPE_PNG),
+		self.btnY_left2 = wx.BitmapButton(self.panel, 3,wx.Bitmap('icons/arriba_24.png', wx.BITMAP_TYPE_PNG),
 		style=wx.NO_BORDER, size=(45,50))
 		self.btnY_left10 = wx.Button(self.panel, label='15', size=(45,50))
 		self.btnY_left15 = wx.Button(self.panel, label='20', size=(45,50))
 		self.btnY_left20 = wx.Button(self.panel, label='25', size=(45,50))
-		self.btnY_right2 = wx.BitmapButton(self.panel, 2,wx.Bitmap('icons/rightArrow2_24.png', wx.BITMAP_TYPE_PNG),
+		self.btnY_right2 = wx.BitmapButton(self.panel, 4,wx.Bitmap('icons/abajo_24.png', wx.BITMAP_TYPE_PNG),
 		style=wx.NO_BORDER, size=(45,50))
 		self.btnY_right10 = wx.Button(self.panel, label='15', size=(45,50))
 		self.btnY_right15 = wx.Button(self.panel, label='20', size=(45,50))
@@ -365,19 +365,19 @@ class Main(wx.Frame):
 
 			#COMPRUEBA PUNTOS INICIALES
 			if palabras[0] == 'G00':
-				if palabras[1][0] == 'Z':
-					if palabras[1][1] == '-':
-						cuchilla = 0
-						a3 = '000'+str(cuchilla)+'0000'
-						b3 = int(str(a3), 2)
-						ser.write(chr(b3)) #Manda movimiento
-						time.sleep(1)
-					else:
-						cuchilla = 1
-						a3 = '000'+str(cuchilla)+'0000'
-						b3 = int(str(a3), 2)
-						ser.write(chr(b3)) #Manda movimiento
-						time.sleep(1)
+				# if palabras[1][0] == 'Z':
+				# 	if palabras[1][1] == '-':
+				# 		cuchilla = 0
+				# 		a3 = '000'+str(cuchilla)+'0000'
+				# 		b3 = int(str(a3), 2)
+				# 		ser.write(chr(b3)) #Manda movimiento
+				# 		time.sleep(1)
+				# 	else:
+				# 		cuchilla = 1
+				# 		a3 = '000'+str(cuchilla)+'0000'
+				# 		b3 = int(str(a3), 2)
+				# 		ser.write(chr(b3)) #Manda movimiento
+				# 		time.sleep(1)
 				#COMPRUEBA X y Y
 				if palabras[1][0] == 'X' and palabras[2][0] == 'Y':
 					movX0 = palabras[1].replace("X", "")
@@ -395,7 +395,7 @@ class Main(wx.Frame):
 				#print "SOLENOIDE: "+str(cuchilla)
 				#Comprueba si hay X y Y
 				if palabras[1][0] == 'X' and palabras[2][0] == 'Y':
-					cuchilla = 0
+					#cuchilla = 0
 					#Asigna el valor de X e Y en variables para sacar pasos y distancia
 					movX1 = palabras[1].replace("X", "")
 					movY1 = palabras[2].replace("Y", "")
@@ -446,7 +446,7 @@ class Main(wx.Frame):
 						contY = 0
 						#MOVIMIENTO DE AMBOS MOTORES
 						#X SUPERA A Y
-						if pasosx > pasosy and pasosy > 1:
+						if pasosx > pasosy and pasosy > 0:
 							print "MOTOR Y SUPERA A MOTOR X"
 							cub_interc = convertir_num_decimal_string(str(pasosx / pasosy)) #Se saca la interseccion
 							cub_int = int(cub_interc) #Se convierte el valor a entero
@@ -460,11 +460,11 @@ class Main(wx.Frame):
 									pm1 = 1
 									pm2 = 0
 									ser.write(chr(int('00000000',2))) #Manda cero primero
-									time.sleep(tiempo01)
+									time.sleep(tiempo02)
 									a = '000'+str(cuchilla)+str(pm1)+str(DirMX)+str(pm2)+str(DirMY)
 									d = int(str(a), 2)
 									ser.write(chr(d)) #Manda movimiento
-									time.sleep(tiempo01)
+									time.sleep(tiempo03)
 								else:
 									cub_cont = 0
 									print "AMBOS MOTORES A LA PAR"
@@ -475,10 +475,10 @@ class Main(wx.Frame):
 									a1 = '000'+str(cuchilla)+str(pm1)+str(DirMX)+str(pm2)+str(DirMY)
 									b1 = int(str(a1), 2)
 									ser.write(chr(b1)) #Manda movimiento
-									time.sleep(tiempo03)
+									time.sleep(tiempo02)
 						else:
 							#Y SUPERA A X
-							if pasosy > pasosx and pasosx > 1:
+							if pasosy > pasosx and pasosx > 0:
 								print "MOTOR Y SUPERA A MOTOR X"
 								cub_interc = convertir_num_decimal_string(str(pasosy / pasosx)) #Se saca la interseccion
 								cub_int = int(cub_interc) #Se convierte el valor a entero
@@ -496,7 +496,7 @@ class Main(wx.Frame):
 										a = '000'+str(cuchilla)+str(pm1)+str(DirMX)+str(pm2)+str(DirMY)
 										d = int(str(a), 2)
 										ser.write(chr(d)) #Manda movimiento
-										time.sleep(tiempo02)
+										time.sleep(tiempo03)
 									else:
 										cub_cont = 0
 										print "AMBOS MOTORES A LA PAR"
@@ -507,23 +507,23 @@ class Main(wx.Frame):
 										a1 = '000'+str(cuchilla)+str(pm1)+str(DirMX)+str(pm2)+str(DirMY)
 										b1 = int(str(a1), 2)
 										ser.write(chr(b1)) #Manda movimiento
-										time.sleep(tiempo03)
+										time.sleep(tiempo02)
 							else:
 								#MOVIMIENTO DE AMBOS MOTORES A LA PAR
-								if pasosx == pasosy and (pasosx > 2 and pasosy > 2):
+								if pasosx == pasosy and (pasosx > 1 and pasosy > 1):
 									print "AMBOS MOTORES A LA PAR"
 									pm1 = 1
 									pm2 = 1
 									for n in range (1, pasosx+1):
 										ser.write(chr(int('00000000',2))) #Manda cero primero
-										time.sleep(tiempo03)
+										time.sleep(tiempo01)
 										a1 = '000'+str(cuchilla)+str(pm1)+str(DirMX)+str(pm2)+str(DirMY)
 										b1 = int(str(a1), 2)
 										ser.write(chr(b1)) #Manda movimiento
 										time.sleep(tiempo02)
 								else:
 									#MOVIMIENTO SOLO DE MOTOR X
-									if pasosx > 1 and (pasosy >= 0 and pasosy <= 1):
+									if pasosx > 0 and (pasosy >= 0 and pasosy <= 1):
 										print "MOVIMIENTO SOLO EN X"
 										pm1 = 1
 										pm2 = 0
@@ -534,10 +534,10 @@ class Main(wx.Frame):
 											d = int(str(a), 2)
 											ser.write(chr(d)) #Manda movimiento
 											time.sleep(tiempo01)
-										ser.write(chr(int('00000000',2)))
+										#ser.write(chr(int('00000000',2)))
 									else:
 										#MOVIMIENTO SOLO DE MOTOR Y
-										if pasosy > 1 and (pasosx >= 0 and pasosx <= 1):
+										if pasosy > 0 and (pasosx >= 0 and pasosx <= 1):
 											print "MOVIMIENTO SOLO EN Y"
 											pm1 = 0
 											pm2 = 1
@@ -548,7 +548,7 @@ class Main(wx.Frame):
 												d = int(str(a), 2)
 												ser.write(chr(d)) #Manda movimiento
 												time.sleep(tiempo02)
-											ser.write(chr(int('00000000',2)))
+											#ser.write(chr(int('00000000',2)))
 
 
 
