@@ -415,10 +415,8 @@ class Main(wx.Frame):
 					#se verificara en que direccion se debe mover el motor
 					if XD > 0:
 						DirMX = 0
-						#pmX = 1
 					else:
 						DirMX = 1
-						#pmX = 0
 					if YD > 0:
 						DirMY = 0
 					else:
@@ -446,7 +444,7 @@ class Main(wx.Frame):
 						contY = 0
 						#MOVIMIENTO DE AMBOS MOTORES
 						#X SUPERA A Y
-						if pasosx > pasosy and pasosy > 0:
+						if pasosx > pasosy and pasosy > 1:
 							print "MOTOR Y SUPERA A MOTOR X"
 							cub_interc = convertir_num_decimal_string(str(pasosx / pasosy)) #Se saca la interseccion
 							cub_int = int(cub_interc) #Se convierte el valor a entero
@@ -456,7 +454,7 @@ class Main(wx.Frame):
 								xp = xp - 1
 								if (cub_cont < cub_int):
 									cub_cont = cub_cont + 1
-									print "MOVIMIENTO SOLO EN X"
+									print "MOVIMIENTO XXXXXX"
 									pm1 = 1
 									pm2 = 0
 									ser.write(chr(int('00000000',2))) #Manda cero primero
@@ -467,7 +465,7 @@ class Main(wx.Frame):
 									time.sleep(tiempo03)
 								else:
 									cub_cont = 0
-									print "AMBOS MOTORES A LA PAR"
+									print "AMBOS MOTORES A LA PAR X > Y"
 									pm1 = 1
 									pm2 = 1
 									ser.write(chr(int('00000000',2))) #Manda cero primero
@@ -478,7 +476,7 @@ class Main(wx.Frame):
 									time.sleep(tiempo02)
 						else:
 							#Y SUPERA A X
-							if pasosy > pasosx and pasosx > 0:
+							if pasosy > pasosx and pasosx > 1:
 								print "MOTOR Y SUPERA A MOTOR X"
 								cub_interc = convertir_num_decimal_string(str(pasosy / pasosx)) #Se saca la interseccion
 								cub_int = int(cub_interc) #Se convierte el valor a entero
@@ -488,7 +486,7 @@ class Main(wx.Frame):
 									yp = yp - 1
 									if (cub_cont < cub_int):
 										cub_cont = cub_cont + 1
-										print "MOVIMIENTO SOLO EN Y"
+										print "MOTOR YYYYYYYYYY"
 										pm1 = 0
 										pm2 = 1
 										ser.write(chr(int('00000000',2))) #Manda cero primero
@@ -499,7 +497,7 @@ class Main(wx.Frame):
 										time.sleep(tiempo03)
 									else:
 										cub_cont = 0
-										print "AMBOS MOTORES A LA PAR"
+										print "AMBOS MOTORES A LA PAR Y > X"
 										pm1 = 1
 										pm2 = 1
 										ser.write(chr(int('00000000',2))) #Manda cero primero
@@ -510,7 +508,7 @@ class Main(wx.Frame):
 										time.sleep(tiempo02)
 							else:
 								#MOVIMIENTO DE AMBOS MOTORES A LA PAR
-								if pasosx == pasosy and (pasosx > 1 and pasosy > 1):
+								if pasosx == pasosy and (pasosx > 2 and pasosy > 2):
 									print "AMBOS MOTORES A LA PAR"
 									pm1 = 1
 									pm2 = 1
